@@ -1,7 +1,7 @@
 name: Record Checker
 on:
   schedule:
-    - cron: '*/5 * * * *' # 5分おき（※混雑時は少し遅れることがあります）
+    - cron: '*/15 * * * *' # 5分おき（※混雑時は少し遅れることがあります）
   workflow_dispatch:      # 手動実行ボタンも追加
 
 jobs:
