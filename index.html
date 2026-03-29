@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>陸上記録速報まとめ</title>
+    <style>
+        body { font-family: sans-serif; background: #f0f2f5; padding: 20px; }
+        .card { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .score-5 { border-left: 10px solid #ff4500; } /* 凄い記録は赤く！ */
+        .score-1 { border-left: 10px solid #ccc; }
+        .badge { background: #333; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <h1>⚡ 陸上記録速報まとめ</h1>
+    <div id="results"></div>
+
+    <script>
+        fetch('data.json')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('results');
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = `card score-${item.score}`;
+                    div.innerHTML = `
+                        <small>${item.date}</small>
+                        <h3>${item.event} - ${item.time}</h3>
+                        <p><strong>${item.name}</strong> <span class="badge">スコア: ${item.score}</span></p>
+                        <p style="color: #666;">${item.comment}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            });
+    </script>
+</body>
+</html>
