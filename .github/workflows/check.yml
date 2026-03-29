@@ -17,7 +17,7 @@ jobs:
           python-version: '3.x' 
       - name: Install dependencies
         run: |
-          pip install google-generativeai twikit
+          pip install "twikit<2.0.0" google-generativeai
       - name: Run script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
