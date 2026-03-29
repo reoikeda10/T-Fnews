@@ -1,18 +1,19 @@
 import os
 import json
 import asyncio
-import google.generativeai as genai
 from datetime import datetime
+from google import genai  # 最新の google-genai ライブラリを使用
 from twikit import Client
 
 # --- 設定 ---
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 X_COOKIES = os.getenv("X_COOKIES")
 
+# 取得対象のアカウント
 TARGET_ACCOUNTS = ["travismillerx13", "FloTrack", "TrackGazette", "Getsuriku"]
 
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-1.5-flash")
+# 最新の Gemini Client 初期化
+client_gemini = genai.Client(api_key=GEMINI_API_KEY)
 
 def analyze_with_gemini(text):
     prompt = f"""
@@ -26,44 +27,40 @@ def analyze_with_gemini(text):
     出力形式: {{"is_record": bool, "event": "種目", "name": "選手名", "time": "記録", "score": int, "comment": "解説"}}
     """
     try:
-        response = model.generate_content(prompt)
+        # ★ここを Gemini 3.1 Flash-Lite に変更
+        response = client_gemini.models.generate_content(
+            model='gemini-3.1-flash-lite-preview',
+            contents=prompt
+        )
         res_text = response.text.replace('```json', '').replace('```', '').strip()
         return json.loads(res_text)
-    except:
+    except Exception as e:
+        print(f"Gemini Error (Quota?): {e}")
         return None
 
 async def main():
-    client = Client('ja-JP')
+    # Xクライアントの準備 (User-Agentを偽装してエラー回避)
+    ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+    client_x = Client('ja-JP', user_agent=ua)
     
+    # クッキーの読み込み
     if X_COOKIES:
         try:
-            # 1. 文字列をリスト/辞書に変換
             raw_cookies = json.loads(X_COOKIES)
-            
-            # 2. ブラウザ形式のクッキーを twikit が読める形式（name: value）に変換
-            if isinstance(raw_cookies, list):
-                # リスト形式（EditThisCookie等）の場合
-                cookie_dict = {c['name']: c['value'] for c in raw_cookies if 'name' in c and 'value' in c}
-            else:
-                # すでに辞書形式の場合
-                cookie_dict = raw_cookies
-            
-            # 3. 変換したクッキーをセット
-            client.set_cookies(cookie_dict)
-            print("Cookies successfully converted and loaded.")
+            cookie_dict = {c['name']: c['value'] for c in raw_cookies if 'name' in c and 'value' in c}
+            client_x.set_cookies(cookie_dict)
+            print("Cookies loaded.")
         except Exception as e:
-            print(f"Failed to process cookies: {e}")
+            print(f"Cookie Error: {e}")
             return
     else:
         print("Error: X_COOKIES not found.")
         return
 
+    # 既存データの読み込み
     try:
-        if os.path.exists('data.json'):
-            with open('data.json', 'r', encoding='utf-8') as f:
-                data = json.load(f)
-        else:
-            data = []
+        with open('data.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
     except:
         data = []
 
@@ -72,21 +69,31 @@ async def main():
     for screen_name in TARGET_ACCOUNTS:
         print(f"Checking @{screen_name}...")
         try:
-            user = await client.get_user_by_screen_name(screen_name)
+            # X側の負荷軽減のため少し待機
+            await asyncio.sleep(3)
+            user = await client_x.get_user_by_screen_name(screen_name)
             tweets = await user.get_tweets('Tweets', count=5)
+            
             for tweet in tweets:
                 if str(tweet.id) in existing_ids:
                     continue
+
+                # Gemini 3.1 Flash-Lite で解析
                 result = analyze_with_gemini(tweet.text)
+                
                 if result and result.get('is_record'):
                     result['id'] = tweet.id
                     result['account'] = screen_name
                     result['date'] = datetime.now().strftime("%m/%d %H:%M")
                     data.insert(0, result)
-                    print(f"New Record found: {result['event']} {result['time']}")
+                    print(f"Added: {result['event']} {result['time']}")
+        
         except Exception as e:
-            print(f"Error at {screen_name}: {e}")
+            # Xの仕様変更エラー(KEY_BYTE等)が出ても、プログラムを落とさず次へ
+            print(f"Skipping @{screen_name}: {e}")
+            continue
 
+    # 保存
     with open('data.json', 'w', encoding='utf-8') as f:
         json.dump(data[:100], f, ensure_ascii=False, indent=2)
 
