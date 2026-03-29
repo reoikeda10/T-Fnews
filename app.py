@@ -43,14 +43,19 @@ def analyze_with_gemini(text):
 async def main():
     client = Client('ja-JP')
     
-    # 【重要】パスワードログインの代わりにクッキーファイルを読み込む
-    try:
-        if os.path.exists('cookies.json'):
-            client.load_cookies('cookies.json')
-            print("Successfully loaded cookies.")
-        else:
-            print("Error: cookies.json not found. Please upload it to your repository.")
-            return
+    # Secretsからクッキーを取得
+    cookies_data = os.getenv("X_COOKIES")
+    
+    if cookies_data:
+        # 一時的にファイルとして書き出してから読み込む
+        with open('cookies.json', 'w') as f:
+            f.write(cookies_data)
+        client.load_cookies('cookies.json')
+        print("Successfully loaded cookies from Secrets.")
+    else:
+        print("Error: X_COOKIES secret not found.")
+        return
+
     except Exception as e:
         print(f"Failed to load cookies: {e}")
         return
