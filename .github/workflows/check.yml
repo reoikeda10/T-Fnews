@@ -1,80 +1,39 @@
-import os
-import json
-import asyncio
-import google.generativeai as genai
-from datetime import datetime
-from twikit import Client
+name: Record-Checker-V2
 
-# --- 設定 ---
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-X_USERNAME = os.getenv("X_USERNAME")
-X_EMAIL = os.getenv("X_EMAIL")
-X_PASSWORD = os.getenv("X_PASSWORD")
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
 
-TARGET_ACCOUNTS = [
-    "travismillerx13",
-    "FloTrack",
-    "TrackGazette",
-    "Getsuriku"
-]
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: リポジトリを読み込む
+        uses: actions/checkout@v4
 
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-1.5-flash")
+      - name: Python3.12をセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
 
-def analyze_with_gemini(text):
-    prompt = f"""
-    以下の陸上競技の速報ツイートを解析し、JSON形式で返してください。
-    【判定基準】
-    - 記録の速報（タイムや順位）なら is_record: true
-    - 凄さの評価(score): 1〜5
-    - 解説(comment): 20文字程度で補足
+      - name: ライブラリをインストール
+        run: |
+          pip install google-generativeai twikit
 
-    ツイート内容: {text}
-    出力形式: {{"is_record": bool, "event": "種目", "name": "選手名", "time": "記録", "score": int, "comment": "解説"}}
-    """
-    try:
-        response = model.generate_content(prompt)
-        res_text = response.text.replace('```json', '').replace('```', '').strip()
-        return json.loads(res_text)
-    except:
-        return None
+      - name: プログラムを実行
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          X_USERNAME: ${{ secrets.X_USERNAME }}
+          X_EMAIL: ${{ secrets.X_EMAIL }}
+          X_PASSWORD: ${{ secrets.X_PASSWORD }}
+        run: python app.py
 
-async def main(): # asyncを追加
-    client = Client('ja-JP')
-    
-    # ログイン (awaitを追加)
-    await client.login(auth_info_1=X_USERNAME, auth_info_2=X_EMAIL, password=X_PASSWORD)
-
-    try:
-        with open('data.json', 'r', encoding='utf-8') as f:
-            data = json.load(f)
-    except:
-        data = []
-
-    existing_ids = [item.get('id') for item in data]
-
-    for screen_name in TARGET_ACCOUNTS:
-        print(f"Checking @{screen_name}...")
-        try:
-            user = await client.get_user_by_screen_name(screen_name) # awaitを追加
-            tweets = await user.get_tweets('Tweets', count=5) # awaitを追加
-
-            for tweet in tweets:
-                if tweet.id in existing_ids:
-                    continue
-
-                result = analyze_with_gemini(tweet.text)
-                if result and result['is_record']:
-                    result['id'] = tweet.id
-                    result['account'] = screen_name
-                    result['date'] = datetime.now().strftime("%m/%d %H:%M")
-                    data.insert(0, result)
-                    print(f"New record found: {result['event']} {result['time']}")
-        except Exception as e:
-            print(f"Error checking {screen_name}: {e}")
-
-    with open('data.json', 'w', encoding='utf-8') as f:
-        json.dump(data[:100], f, ensure_ascii=False, indent=2)
-
-if __name__ == "__main__":
-    asyncio.run(main()) # 実行方法を変更
+      - name: 結果を保存
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update records" && git push)
