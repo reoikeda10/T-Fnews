@@ -1,31 +1,43 @@
 name: Record Checker
+
 on:
   schedule:
-    - cron: '*/15 * * * *' # 5分おき（※混雑時は少し遅れることがあります）
-  workflow_dispatch:      # 手動実行ボタンも追加
+    # 15分おきに実行 (UTC時間で計算されるため、日本時間とはズレますが間隔は15分です)
+    - cron: '*/15 * * * *'
+  workflow_dispatch: # 手動実行ボタンを有効にする
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # 実行結果をリポジトリに書き込む権限
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.x' 
+          python-version: '3.12' # ここを確実に3.12に固定
+
       - name: Install dependencies
         run: |
-          pip install "twikit<2.0.0" google-generativeai
-      - name: Run script
+          python -m pip install --upgrade pip
+          pip install google-generativeai twikit
+
+      - name: Run record checker script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          X_USERNAME: ${{ secrets.X_USERNAME }}
+          X_EMAIL: ${{ secrets.X_EMAIL }}
+          X_PASSWORD: ${{ secrets.X_PASSWORD }}
         run: python app.py
-      - name: Commit and Push
+
+      - name: Commit and Push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data.json
-          git commit -m "Update records" || exit 0
-          git push
+          # 変更がある場合のみコミット
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update records [skip ci]" && git push)
