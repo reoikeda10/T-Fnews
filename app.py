@@ -7,7 +7,7 @@ from twikit import Client
 
 # --- 設定 ---
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-X_COOKIES = os.getenv("X_COOKIES") # Secretsから取得
+X_COOKIES = os.getenv("X_COOKIES")
 
 TARGET_ACCOUNTS = ["travismillerx13", "FloTrack", "TrackGazette", "Getsuriku"]
 
@@ -35,19 +35,35 @@ def analyze_with_gemini(text):
 async def main():
     client = Client('ja-JP')
     
-    # Secretsのクッキーをファイルとして一時保存して読み込む
     if X_COOKIES:
-        with open('cookies.json', 'w') as f:
-            f.write(X_COOKIES)
-        client.load_cookies('cookies.json')
-        print("Cookies loaded from Secrets.")
+        try:
+            # 1. 文字列をリスト/辞書に変換
+            raw_cookies = json.loads(X_COOKIES)
+            
+            # 2. ブラウザ形式のクッキーを twikit が読める形式（name: value）に変換
+            if isinstance(raw_cookies, list):
+                # リスト形式（EditThisCookie等）の場合
+                cookie_dict = {c['name']: c['value'] for c in raw_cookies if 'name' in c and 'value' in c}
+            else:
+                # すでに辞書形式の場合
+                cookie_dict = raw_cookies
+            
+            # 3. 変換したクッキーをセット
+            client.set_cookies(cookie_dict)
+            print("Cookies successfully converted and loaded.")
+        except Exception as e:
+            print(f"Failed to process cookies: {e}")
+            return
     else:
         print("Error: X_COOKIES not found.")
         return
 
     try:
-        with open('data.json', 'r', encoding='utf-8') as f:
-            data = json.load(f)
+        if os.path.exists('data.json'):
+            with open('data.json', 'r', encoding='utf-8') as f:
+                data = json.load(f)
+        else:
+            data = []
     except:
         data = []
 
@@ -67,7 +83,7 @@ async def main():
                     result['account'] = screen_name
                     result['date'] = datetime.now().strftime("%m/%d %H:%M")
                     data.insert(0, result)
-                    print(f"New Record: {result['event']}")
+                    print(f"New Record found: {result['event']} {result['time']}")
         except Exception as e:
             print(f"Error at {screen_name}: {e}")
 
