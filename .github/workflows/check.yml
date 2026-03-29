@@ -2,17 +2,20 @@ name: Record-Checker-V2
 
 on:
   schedule:
+    # 15分おきに実行
     - cron: '*/15 * * * *'
-  workflow_dispatch:
+  workflow_dispatch: # 手動実行ボタン
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # リポジトリへの書き込み権限
     steps:
       - name: リポジトリを読み込む
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # すべての履歴を取得（pull --rebaseのため）
 
       - name: Python3.12をセットアップ
         uses: actions/setup-python@v5
@@ -21,6 +24,7 @@ jobs:
 
       - name: ライブラリをインストール
         run: |
+          python -m pip install --upgrade pip
           pip install google-generativeai twikit
 
       - name: プログラムを実行
@@ -35,5 +39,14 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 変更がある場合のみ処理
           git add data.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update records" && git push)
+          if ! git diff --staged --quiet; then
+            git commit -m "Update records [skip ci]"
+            # 他の変更（ブラウザでの編集など）を取り込んでからPush
+            git pull --rebase origin main
+            git push origin main
+          else
+            echo "No changes to commit"
+          fi
