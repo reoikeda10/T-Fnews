@@ -23,8 +23,7 @@ jobs:
       - name: ライブラリをインストール
         run: |
           python -m pip install --upgrade pip
-          # 新しい google-genai ライブラリをインストール
-          pip install --upgrade google-genai twikit
+          pip install --upgrade google-genai beautifulsoup4 requests lxml
 
       - name: プログラムを実行
         env:
