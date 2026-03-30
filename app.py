@@ -11,10 +11,8 @@ from google import genai
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 client_gemini = genai.Client(api_key=GEMINI_API_KEY)
 
-# 巡回先URL
 URL_FLOTRACK = "https://www.flotrack.org/articles"
 URL_GETSURIKU_NEWS = "https://www.rikujyokyogi.co.jp/archives/category/news/kokunai"
-# 日本語URLのエンコード
 target_cat = urllib.parse.quote("大会結果")
 URL_GETSURIKU_RESULTS = f"https://www.rikujyokyogi.co.jp/archives/category/news/{target_cat}/"
 URL_WA_CALENDAR = "https://worldathletics.org/competitions/world-athletics-continental-tour/calendar-results"
@@ -27,7 +25,7 @@ def analyze_with_gemini(text, source_url):
     【ルール】
     - is_record: 記録データがあれば true。
     - category: 「短距離」「長距離」「中距離」「ハードル」「跳躍」「投擲」「ロード」から選択。
-    - score: 1〜10で評価。かなり厳しめにつけてください。世界記録でやっと10。エリア記録で9か8、ナショナルレコードレベルが9~4(国による)
+    - score: 1〜10で評価。かなり厳しめにつけてください。世界記録でやっと10。エリア記録で9か8、ナショナルレコードレベルが9~6(国による)
     - 記事内の全選手・全種目を個別に抽出。
     テキスト: {text[:5000]}
     出力形式:
@@ -43,18 +41,14 @@ def analyze_with_gemini(text, source_url):
 
 def get_page_content(url, selector):
     try:
-        # ブラウザからのアクセスに見せかけるためのヘッダー
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
         res = requests.get(url, headers=headers, timeout=20)
         res.encoding = res.apparent_encoding
         soup = BeautifulSoup(res.text, 'lxml')
         for s in soup(['nav', 'header', 'footer', 'script', 'style', 'aside']):
             s.decompose()
-        # 月陸は .entry-content に本文がある
         main_content = soup.select_one(selector)
-        if main_content:
-            return main_content.get_text(separator=' ', strip=True)
-        return soup.get_text(separator=' ', strip=True)
+        return main_content.get_text(separator=' ', strip=True) if main_content else soup.get_text(separator=' ', strip=True)
     except:
         return ""
 
@@ -70,11 +64,12 @@ def main():
     
     processed_urls = [item.get('source_url') for item in data if 'source_url' in item]
 
-    # サイト設定
+    # --- サイトごとの個別設定 ---
+    # pattern: その文字列がURLに含まれていれば記事とみなす
     news_targets = [
-        {"name": "FloTrack", "url": URL_FLOTRACK, "body_sel": "article", "base": "https://www.flotrack.org"},
-        {"name": "月陸ニュース", "url": URL_GETSURIKU_NEWS, "body_sel": ".entry-content", "base": ""},
-        {"name": "月陸大会結果", "url": URL_GETSURIKU_RESULTS, "body_sel": ".entry-content", "base": ""}
+        {"name": "FloTrack", "url": URL_FLOTRACK, "body_sel": "article", "base": "https://www.flotrack.org", "pattern": "/articles/"},
+        {"name": "月陸ニュース", "url": URL_GETSURIKU_NEWS, "body_sel": ".entry-content", "base": "", "pattern": "/archives/"},
+        {"name": "月陸大会結果", "url": URL_GETSURIKU_RESULTS, "body_sel": ".entry-content", "base": "", "pattern": "/archives/"}
     ]
 
     for nt in news_targets:
@@ -84,24 +79,22 @@ def main():
             res = requests.get(nt['url'], headers=headers, timeout=15)
             soup = BeautifulSoup(res.text, 'lxml')
             
-            # --- ここが重要：リンク抽出ロジックの強化 ---
             all_links = soup.find_all('a', href=True)
             article_links = []
             for l in all_links:
                 href = l['href']
-                # 月陸の記事URLは必ず "/archives/数字" という形式
-                if "/archives/" in href and any(char.isdigit() for char in href):
-                    # 絶対パスに変換
+                # 各サイト固有のパターンでチェック
+                if nt['pattern'] in href:
+                    # 月陸の場合はさらに数字チェック、FloTrackはそのまま
+                    if nt['name'].startswith("月陸") and not any(char.isdigit() for char in href):
+                        continue
+                        
                     full_url = href if href.startswith('http') else nt['base'] + href
                     article_links.append(full_url)
             
-            # 重複を消して最新5件
-            unique_links = []
-            for link in article_links:
-                if link not in unique_links:
-                    unique_links.append(link)
+            unique_links = list(dict.fromkeys(article_links))[:5]
             
-            for article_url in unique_links[:5]:
+            for article_url in unique_links:
                 if article_url not in processed_urls:
                     print(f"  Analysing: {article_url}")
                     content = get_page_content(article_url, nt['body_sel'])
@@ -115,7 +108,7 @@ def main():
         except Exception as e:
             print(f"  Error at {nt['name']}: {e}")
 
-    # World Athletics (時差対策版)
+    # World Athletics 時差対策
     base_date = datetime.datetime.now()
     target_days = [(base_date + datetime.timedelta(days=i)).strftime("%d %b %Y").lstrip('0') for i in range(-1, 2)]
     print(f"Checking WA for: {target_days}")
