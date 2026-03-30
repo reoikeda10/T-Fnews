@@ -2,10 +2,8 @@ name: Record-Checker-V2
 
 on:
   schedule:
-    # 15分おきに実行
-    - cron: '*/15 * * * *'
-  workflow_dispatch: # 手動実行ボタンを有効にする
-
+    - cron: '*/30 * * * *'  # 30分おきに実行
+  workflow_dispatch:        # 手動実行も可能
 jobs:
   run-script:
     runs-on: ubuntu-latest
