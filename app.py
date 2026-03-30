@@ -16,30 +16,26 @@ URL_GETSURIKU = "https://www.rikujyokyogi.co.jp/archives/category/news/kokunai"
 URL_WA_CALENDAR = "https://worldathletics.org/competitions/world-athletics-continental-tour/calendar-results"
 
 def analyze_with_gemini(text, source_url):
-    """
-    抽出したテキストから、重要な好記録をすべてリスト形式で抽出する
-    """
-    if not text or len(text) < 100:
-        return []
-
     prompt = f"""
-    以下の陸上競技のニュースまたはリザルトデータから、重要な好記録（優勝、自己ベスト、日本新、世界新、好タイム）を【すべて】抽出し、必ずJSONのリスト形式で返してください。
+    以下の陸上競技データから、重要な記録を【すべて】抽出し、必ずJSONのリスト形式で返してください。
+    
+    【抽出項目】
+    - category: 「短距離」「長距離」など
+    - event: 種目名
+    - name: 選手名
+    - time: 記録
+    - score: 1-10の評価
+    - nationality: 国籍（不明なら空文字）
+    - age: 年齢または生年（不明なら空文字）
+    - location: 大会名や開催地
+    - wind: 風速（+1.2等、必要な種目のみ。不要なら空文字）
+    - comment: 簡潔な解説
 
-    【抽出ルール】
-    1. is_record: 記録の速報なら true。
-    2. category: 「短距離」「ハードル」「中距離」「長距離」「跳躍」「投擲」「ロード」から選択。
-    3. score: 記録の凄さを1〜10の整数で評価（10は世界記録級、9は日本記録級、7-8は非常に優れた記録）。
-    4. event: 種目名（例：男子100m）。
-    5. name: 選手名。
-    6. time: 記録や順位（例：9.97 (+1.2)）。
-    7. comment: 20文字以内で簡潔に解説。
-
-    テキストデータ:
-    {text[:5000]}
-
-    出力形式（必ずこの配列形式のみで返して）:
+    テキスト: {text[:5000]}
+    
+    出力形式:
     [
-      {{"is_record": true, "category": "カテゴリ名", "event": "種目", "name": "選手名", "time": "記録", "score": int, "comment": "解説"}},
+      {{"is_record": true, "category": "...", "event": "...", "name": "...", "time": "...", "score": 10, "nationality": "...", "age": "...", "location": "...", "wind": "...", "comment": "..."}},
       ...
     ]
     """
@@ -51,9 +47,9 @@ def analyze_with_gemini(text, source_url):
         res_text = response.text.replace('```json', '').replace('```', '').strip()
         results = json.loads(res_text)
         return results if isinstance(results, list) else [results]
-    except Exception as e:
-        print(f"Gemini Error: {e}")
+    except:
         return []
+
 
 def get_page_content(url, selector):
     """
