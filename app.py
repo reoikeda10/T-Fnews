@@ -1,126 +1,141 @@
 import os
 import json
-import asyncio
+import time
+import requests
 from datetime import datetime
+from bs4 import BeautifulSoup
 from google import genai
-from twikit import Client
 
 # --- 設定 ---
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-X_COOKIES = os.getenv("X_COOKIES")
-
-# 監視対象のアカウント
-TARGET_ACCOUNTS = ["travismillerx13", "FloTrack", "TrackGazette", "Getsuriku"]
-
-# Gemini Client 初期化
 client_gemini = genai.Client(api_key=GEMINI_API_KEY)
 
-def analyze_with_gemini(text):
+# 巡回URL
+URL_FLOTRACK = "https://www.flotrack.org/articles"
+URL_GETSURIKU = "https://www.rikujyokyogi.co.jp/archives/category/news/kokunai"
+URL_WORLD_ATHLETICS = "https://worldathletics.org/competitions/world-athletics-continental-tour/calendar-results"
+
+def analyze_with_gemini(text, source_url):
     """
-    ツイート内容を解析し、10段階評価とカテゴリ分けを行う
+    記事から【すべての】好記録をリスト形式で抽出する
     """
     prompt = f"""
-    以下の陸上競技のツイートを解析し、必ず指定のJSON形式で返してください。
+    以下の陸上競技ニュースから、重要な好記録や速報を【すべて】抽出し、JSONのリスト形式で返してください。
     
-    【判定・分類ルール】
-    1. is_record: 記録の速報、大会結果なら true。それ以外（単なる意気込みや宣伝）は false。
-    2. category: 以下のいずれかに分類してください。
-       「短距離」「ハードル」「中距離」「長距離」「跳躍」「投擲」「ロード」
-    3. score: 記録の凄さを1〜10の整数で評価。
-       - 10: 世界新記録、歴史的な快挙
-       - 9: 日本新記録、世界最高峰の大会での優勝
-       - 7-8: 非常に高いレベルの自己ベストや好記録
-       - 4-6: 一般的な大会の優勝や標準的な記録
-       - 1-3: 記録ではあるが、凄さは控えめ
-    4. comment: 20文字以内で簡潔に解説（例：追い風参考ながら驚異のタイム）
+    【抽出ルール】
+    - 記録（タイム、距離、順位など）が含まれるもののみ抽出。
+    - category: 「短距離」「ハードル」「中距離」「長距離」「跳躍」「投擲」「ロード」から選択。
+    - score: 記録の凄さを1〜10で評価。
+    - 記事に複数の選手や種目の記録がある場合は、それらをすべて個別の要素としてリストに入れてください。
 
-    ツイート内容: {text}
-
-    出力形式:
-    {{"is_record": bool, "category": "カテゴリ名", "event": "種目", "name": "選手名", "time": "記録", "score": int, "comment": "解説"}}
+    テキスト: {text[:4000]} 
+    
+    出力形式（必ずこの配列形式で）:
+    [
+      {{"is_record": true, "category": "カテゴリ名", "event": "種目", "name": "選手名", "time": "記録", "score": int, "comment": "簡潔な解説"}},
+      ...
+    ]
     """
     try:
-        # Gemini 3.1 Flash-Lite を使用
         response = client_gemini.models.generate_content(
             model='gemini-3.1-flash-lite-preview',
             contents=prompt
         )
-        # JSON部分を抽出
         res_text = response.text.replace('```json', '').replace('```', '').strip()
-        return json.loads(res_text)
-    except Exception as e:
-        print(f"Gemini Analysis Error: {e}")
-        return None
+        results = json.loads(res_text)
+        return results if isinstance(results, list) else [results]
+    except:
+        return []
 
-async def main():
-    # Xクライアントの準備
-    ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
-    client_x = Client('ja-JP', user_agent=ua)
-    
-    # クッキーの読み込みと変換
-    if X_COOKIES:
-        try:
-            raw_cookies = json.loads(X_COOKIES)
-            cookie_dict = {c['name']: c['value'] for c in raw_cookies if 'name' in c and 'value' in c}
-            client_x.set_cookies(cookie_dict)
-            print("Cookies loaded successfully.")
-        except Exception as e:
-            print(f"Cookie Processing Error: {e}")
-            return
-    else:
-        print("X_COOKIES not found in environment variables.")
-        return
-
-    # 既存データの読み込み
+def get_article_content(url, selector):
+    """本文抽出（余計な要素を排除）"""
     try:
-        if os.path.exists('data.json'):
-            with open('data.json', 'r', encoding='utf-8') as f:
-                data = json.load(f)
-        else:
-            data = []
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        res = requests.get(url, headers=headers, timeout=15)
+        soup = BeautifulSoup(res.text, 'lxml')
+        for s in soup(['script', 'style', 'nav', 'header', 'footer', 'aside', 'iframe']):
+            s.decompose()
+        
+        # セレクターで見つからなければbody全体から取る
+        main_content = soup.select_one(selector)
+        if main_content:
+            return main_content.get_text(separator=' ', strip=True)
+        return soup.find('body').get_text(separator=' ', strip=True)
+    except:
+        return ""
+
+def main():
+    try:
+        with open('data.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
     except:
         data = []
+    
+    processed_urls = [item.get('source_url') for item in data if 'source_url' in item]
 
-    # 重複判定用のIDリスト
-    existing_ids = [str(item.get('id')) for item in data]
+    # サイトごとの設定（URL, CSSセレクタ）
+    targets = [
+        {"name": "FloTrack", "url": URL_FLOTRACK, "link_sel": 'a[href*="/articles/"]', "body_sel": "article"},
+        {"name": "Getsuriku", "url": URL_GETSURIKU, "link_sel": ".post-list a", "body_sel": ".entry-content"}
+    ]
 
-    for screen_name in TARGET_ACCOUNTS:
-        print(f"Scanning @{screen_name}...")
+    for target in targets:
+        print(f"Checking {target['name']}...")
         try:
-            # X側の負荷制限を考慮して待機
-            await asyncio.sleep(5)
-            user = await client_x.get_user_by_screen_name(screen_name)
-            tweets = await user.get_tweets('Tweets', count=5)
+            res = requests.get(target['url'], timeout=10)
+            soup = BeautifulSoup(res.text, 'lxml')
+            links = soup.select(target['link_sel'])
             
-            if not tweets:
-                continue
-
-            for tweet in tweets:
-                # 既に保存済みならスキップ
-                if str(tweet.id) in existing_ids:
-                    continue
-
-                # Geminiで解析（10段階評価）
-                result = analyze_with_gemini(tweet.text)
-                
-                if result and result.get('is_record'):
-                    result['id'] = tweet.id
-                    result['account'] = screen_name
-                    # 検索や固定表示に使うため日付に年を入れる
-                    result['date'] = datetime.now().strftime("%Y/%m/%d %H:%M")
+            # 最新の3記事程度をチェック
+            for link in links[:3]:
+                url = link['href'] if link['href'].startswith('http') else target['url'].split('/articles')[0] + link['href']
+                if url not in processed_urls:
+                    print(f"  Analysing: {url}")
+                    content = get_article_content(url, target['body_sel'])
+                    extracted_list = analyze_with_gemini(content, url)
                     
-                    # リストの先頭に追加
-                    data.insert(0, result)
-                    print(f"-> New Record: [{result['category']}] {result['name']} ({result['score']}/10)")
-        
+                    for res_item in extracted_list:
+                        if res_item.get('is_record'):
+                            res_item.update({
+                                "id": f"news_{int(time.time())}_{data.__len__()}",
+                                "source_url": url,
+                                "date": datetime.now().strftime("%Y/%m/%d %H:%M")
+                            })
+                            data.insert(0, res_item)
+                    # 1サイトにつき1つの新URLを処理したら一度保存（レート制限対策）
+                    processed_urls.append(url)
         except Exception as e:
-            print(f"Failed to fetch from @{screen_name}: {e}")
-            continue
+            print(f"Error at {target['name']}: {e}")
 
-    # 最新100件を保存
+    # World Athletics の Result ボタンチェック
+    print("Checking World Athletics Results...")
+    try:
+        res = requests.get(URL_WORLD_ATHLETICS, timeout=10)
+        soup = BeautifulSoup(res.text, 'lxml')
+        # "Result" または "Results" というテキストを持つリンクを探す
+        result_links = [a for a in soup.find_all('a', href=True) if 'result' in a.get_text(strip=True).lower()]
+        
+        for link in result_links[:3]:
+            r_url = link['href'] if link['href'].startswith('http') else "https://worldathletics.org" + link['href']
+            if r_url not in processed_urls:
+                print(f"  Analysing Results: {r_url}")
+                content = get_article_content(r_url, '.results-table, main')
+                extracted_list = analyze_with_gemini(content, r_url)
+                for res_item in extracted_list:
+                    if res_item.get('is_record'):
+                        res_item.update({
+                            "id": f"wa_{int(time.time())}_{data.__len__()}",
+                            "source_url": r_url,
+                            "date": datetime.now().strftime("%Y/%m/%d %H:%M")
+                        })
+                        data.insert(0, res_item)
+                processed_urls.append(r_url)
+    except Exception as e:
+        print(f"WA error: {e}")
+
+    # 保存（最新150件程度保持）
     with open('data.json', 'w', encoding='utf-8') as f:
-        json.dump(data[:100], f, ensure_ascii=False, indent=2)
-    print("Update process finished.")
+        json.dump(data[:150], f, ensure_ascii=False, indent=2)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
