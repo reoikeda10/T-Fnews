@@ -8,37 +8,34 @@
         body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
         .container { max-width: 800px; margin: 0 auto; }
         h1 { text-align: center; color: #e63946; }
-        
-        /* 検索とフィルター */
-        .controls { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-        .search-bar { padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; width: 100%; box-sizing: border-box; }
-        .categories { display: flex; flex-wrap: wrap; gap: 5px; }
-        .cat-btn { padding: 8px 12px; border: none; background: #ddd; border-radius: 20px; cursor: pointer; transition: 0.2s; }
-        .cat-btn.active { background: #e63946; color: white; font-weight: bold; }
+        .controls { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; position: sticky; top: 0; background: #f4f7f6; padding: 10px 0; z-index: 100; }
+        .search-bar { padding: 12px; font-size: 16px; border: 2px solid #ddd; border-radius: 8px; width: 100%; box-sizing: border-box; }
+        .categories { display: flex; flex-wrap: wrap; gap: 6px; }
+        .cat-btn { padding: 8px 15px; border: 1px solid #ddd; background: #fff; border-radius: 20px; cursor: pointer; font-size: 0.9em; }
+        .cat-btn.active { background: #e63946; color: white; border-color: #e63946; font-weight: bold; }
 
-        /* カードデザイン */
-        .card { background: white; border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: 0.3s; }
-        .card:hover { transform: translateY(-2px); }
-        .event { font-size: 0.9em; color: #666; font-weight: bold; margin-bottom: 5px; }
-        .name { font-size: 1.4em; font-weight: bold; color: #1d3557; margin: 5px 0; }
-        .time { font-size: 1.8em; font-weight: 900; color: #e63946; margin: 5px 0; }
-        .meta { display: flex; justify-content: space-between; font-size: 0.85em; color: #888; margin-top: 10px; }
+        /* カード */
+        .card { background: white; border-radius: 12px; padding: 18px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 5px solid #ccc; }
+        .event { font-size: 0.85em; color: #e63946; font-weight: bold; }
+        .name { font-size: 1.3em; font-weight: bold; color: #1d3557; margin: 4px 0; }
+        .time { font-size: 1.8em; font-weight: 900; color: #333; }
+        .comment { font-size: 0.95em; color: #555; margin-top: 8px; }
+        .meta { display: flex; justify-content: space-between; font-size: 0.8em; color: #999; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; }
         
-        /* MAX記録の特大デザイン */
-        .max-record { background: linear-gradient(135deg, #fff9c4, #fff); border: 2px solid #fbc02d; position: relative; }
-        .max-record::before { content: '👑 激アツ記録！'; position: absolute; top: -12px; left: 15px; background: #fbc02d; color: #333; padding: 2px 10px; font-size: 0.8em; font-weight: bold; border-radius: 10px; }
-        .max-record .time { font-size: 2.2em; color: #d32f2f; }
-
-        .section-title { font-size: 1.2em; border-bottom: 2px solid #ccc; padding-bottom: 5px; margin: 30px 0 15px; }
+        /* MAX記録 */
+        .max-record { background: linear-gradient(135deg, #fffcf0, #fff); border: 2px solid #fbc02d; border-left: 8px solid #fbc02d; }
+        
+        #error-msg { color: red; background: #fee; padding: 10px; border-radius: 5px; display: none; margin-bottom: 20px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🏃‍♂️ 陸上 速報ニュース</h1>
+        <h1>🏃‍♂️ TRACK & FIELD NEWS</h1>
+        <div id="error-msg"></div>
 
         <div class="controls">
-            <input type="text" id="searchInput" class="search-bar" placeholder="選手名、大会名、種目などで検索...">
-            <div class="categories" id="categoryButtons">
+            <input type="text" id="searchInput" class="search-bar" placeholder="選手、大会、場所、U20などを検索...">
+            <div class="categories">
                 <button class="cat-btn active" data-cat="すべて">すべて</button>
                 <button class="cat-btn" data-cat="短距離">短距離</button>
                 <button class="cat-btn" data-cat="ハードル">ハードル</button>
@@ -51,42 +48,29 @@
         </div>
 
         <div id="maxRecordsContainer"></div>
-        <h2 class="section-title">タイムライン</h2>
-        <div id="newsContainer"></div>
+        <div id="newsContainer">読み込み中...</div>
     </div>
 
     <script>
         let allData = [];
         let currentCategory = "すべて";
 
-        // 日付文字列をJSのDateオブジェクトに変換（古いフォーマットにも対応）
-        function parseDate(dateStr) {
-            let parts = dateStr.split(' ');
-            let dateParts = parts[0].split('/');
-            let timeParts = parts[1] ? parts[1].split(':') : [0,0];
-            let year = new Date().getFullYear();
-            let month, day;
-
-            if (dateParts.length === 2) {
-                month = parseInt(dateParts[0]) - 1;
-                day = parseInt(dateParts[1]);
-            } else {
-                year = parseInt(dateParts[0]);
-                month = parseInt(dateParts[1]) - 1;
-                day = parseInt(dateParts[2]);
-            }
-            return new Date(year, month, day, timeParts[0], timeParts[1]);
-        }
-
-        // データを取得
-        fetch('data.json')
-            .then(response => response.json())
+        // キャッシュ回避のためにクエリパラメータを追加
+        fetch('data.json?t=' + new Date().getTime())
+            .then(res => {
+                if (!res.ok) throw new Error('data.json が見つかりません');
+                return res.json();
+            })
             .then(data => {
                 allData = data;
                 renderData();
+            })
+            .catch(err => {
+                const errDiv = document.getElementById('error-msg');
+                errDiv.style.display = 'block';
+                errDiv.innerText = 'エラー: ' + err.message;
             });
 
-        // 検索とカテゴリのイベントリスナー
         document.getElementById('searchInput').addEventListener('input', renderData);
         document.querySelectorAll('.cat-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -102,57 +86,44 @@
             const maxContainer = document.getElementById('maxRecordsContainer');
             const searchWord = document.getElementById('searchInput').value.toLowerCase();
             const now = new Date();
-            const threeDaysMs = 3 * 24 * 60 * 60 * 1000; // 3日間
 
             container.innerHTML = '';
             maxContainer.innerHTML = '';
 
-            let maxCount = 0;
+            if (allData.length === 0) {
+                container.innerHTML = '表示する記録がありません。';
+                return;
+            }
 
             allData.forEach(item => {
-                // 検索フィルタ
-                const textForSearch = `${item.event} ${item.name} ${item.time} ${item.comment || ''}`.toLowerCase();
-                if (searchWord && !textForSearch.includes(searchWord)) return;
-
-                // カテゴリフィルタ
+                // 検索 & カテゴリフィルタ
+                const text = `${item.event} ${item.name} ${item.time} ${item.comment} ${item.category}`.toLowerCase();
+                if (searchWord && !text.includes(searchWord)) return;
                 if (currentCategory !== "すべて" && item.category !== currentCategory) return;
 
-                // 3日以内か判定
-                const itemDate = parseDate(item.date);
-                const isRecent = (now - itemDate) <= threeDaysMs;
-
-                // カードのHTMLを作成
-                let scoreStars = '★'.repeat(item.score || 1) + '☆'.repeat(5 - (item.score || 1));
-                let cardClass = "card";
+                // 日付計算 (3日以内)
+                const itemDate = new Date(item.date.replace(/\//g, '-'));
+                const isRecent = (now - itemDate) <= (3 * 24 * 60 * 60 * 1000);
+                const isMax = (item.score >= 10 && isRecent);
                 
-                // スコア5かつ3日以内のものはMAXデザインにする
-                let isMax = (item.score === 10 && isRecent);
-                if (isMax) cardClass += " max-record";
+                const stars = '★'.repeat(item.score || 0) + '☆'.repeat(Math.max(0, 10 - (item.score || 0)));
 
-                const cardHTML = `
-                    <div class="${cardClass}">
-                        <div class="event">${item.category ? `[${item.category}] ` : ''}${item.event}</div>
+                const html = `
+                    <div class="card ${isMax ? 'max-record' : ''}">
+                        <div class="event">[${item.category || '記録'}] ${item.event}</div>
                         <div class="name">${item.name}</div>
                         <div class="time">${item.time}</div>
-                        <div style="font-size: 0.9em;">${item.comment || ''}</div>
+                        <div class="comment">${item.comment || ''}</div>
                         <div class="meta">
-                            <span>凄さ: <span style="color:#fbc02d;">${scoreStars}</span></span>
+                            <span>${item.score}/10 ${stars}</span>
                             <span>${item.date}</span>
                         </div>
                     </div>
                 `;
 
-                // MAXは上に、通常は下に振り分け
-                if (isMax) {
-                    maxContainer.innerHTML += cardHTML;
-                    maxCount++;
-                } else {
-                    container.innerHTML += cardHTML;
-                }
+                if (isMax) maxContainer.innerHTML += html;
+                else container.innerHTML += html;
             });
-
-            // MAX記録がない場合は余白を詰める
-            maxContainer.style.display = maxCount > 0 ? "block" : "none";
         }
     </script>
 </body>
