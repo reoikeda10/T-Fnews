@@ -3,6 +3,7 @@ import json
 import time
 import requests
 import datetime
+import urllib.parse  # 日本語URL対策
 from bs4 import BeautifulSoup
 from google import genai
 
@@ -10,10 +11,12 @@ from google import genai
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 client_gemini = genai.Client(api_key=GEMINI_API_KEY)
 
-# 巡回先URL
+# 巡回先URL（日本語部分はquoteで変換）
 URL_FLOTRACK = "https://www.flotrack.org/articles"
 URL_GETSURIKU_NEWS = "https://www.rikujyokyogi.co.jp/archives/category/news/kokunai"
-URL_GETSURIKU_RESULTS = "https://www.rikujyokyogi.co.jp/archives/category/news/大会結果/"
+# 「大会結果」の部分を安全なURL形式に変換
+target_cat = urllib.parse.quote("大会結果")
+URL_GETSURIKU_RESULTS = f"https://www.rikujyokyogi.co.jp/archives/category/news/{target_cat}/"
 URL_WA_CALENDAR = "https://worldathletics.org/competitions/world-athletics-continental-tour/calendar-results"
 
 def analyze_with_gemini(text, source_url):
@@ -26,10 +29,8 @@ def analyze_with_gemini(text, source_url):
     - category: 「短距離」「長距離」「中距離」「ハードル」「跳躍」「投擲」「ロード」から選択。
     - score: 1〜10で評価。
     - 記事内の全選手・全種目を個別に抽出してください。
-    
     テキスト: {text[:5000]}
-
-    出力形式（JSON配列のみ）:
+    出力形式:
     [ {{"is_record": true, "category": "...", "event": "...", "name": "...", "time": "...", "score": 10, "nationality": "...", "age": "...", "location": "...", "wind": "...", "comment": "..."}} ]
     """
     try:
@@ -42,7 +43,7 @@ def analyze_with_gemini(text, source_url):
 
 def get_page_content(url, selector):
     try:
-        headers = {'User-Agent': 'Mozilla/5.0'}
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
         res = requests.get(url, headers=headers, timeout=15)
         res.encoding = res.apparent_encoding
         soup = BeautifulSoup(res.text, 'lxml')
@@ -65,80 +66,73 @@ def main():
     
     processed_urls = [item.get('source_url') for item in data if 'source_url' in item]
 
-    # --- 1. ニュース・大会結果サイト巡回 ---
     news_targets = [
         {"name": "FloTrack", "url": URL_FLOTRACK, "link_sel": 'a[href*="/articles/"]', "body_sel": "article", "base": "https://www.flotrack.org"},
-        {"name": "月陸ニュース", "url": URL_GETSURIKU_NEWS, "link_sel": ".post-list a", "body_sel": ".entry-content", "base": ""},
-        {"name": "月陸大会結果", "url": URL_GETSURIKU_RESULTS, "link_sel": ".post-list a", "body_sel": ".entry-content", "base": ""}
+        {"name": "月陸ニュース", "url": URL_GETSURIKU_NEWS, "link_sel": "article a, .post-list a", "body_sel": ".entry-content", "base": ""},
+        {"name": "月陸大会結果", "url": URL_GETSURIKU_RESULTS, "link_sel": "article a, .post-list a", "body_sel": ".entry-content", "base": ""}
     ]
 
     for nt in news_targets:
         print(f"Checking {nt['name']}...")
         try:
-            res = requests.get(nt['url'], timeout=15)
+            headers = {'User-Agent': 'Mozilla/5.0'}
+            res = requests.get(nt['url'], headers=headers, timeout=15)
             soup = BeautifulSoup(res.text, 'lxml')
+            
+            # リンク取得をより柔軟に（href属性があるaタグを抽出）
             links = soup.select(nt['link_sel'])
-            for link in links[:5]: 
-                href = link['href']
-                article_url = href if href.startswith('http') else nt['base'] + href
+            valid_links = []
+            for l in links:
+                if l.has_attr('href') and "/archives/" in l['href']:
+                    valid_links.append(l['href'])
+            
+            # 重複を除去して最新5件
+            unique_links = list(dict.fromkeys(valid_links))[:5]
+            
+            for article_url in unique_links:
+                if not article_url.startswith('http'):
+                    article_url = nt['base'] + article_url
+                
                 if article_url not in processed_urls:
-                    print(f"  Analysing Article: {article_url}")
+                    print(f"  Analysing: {article_url}")
                     content = get_page_content(article_url, nt['body_sel'])
                     extracted = analyze_with_gemini(content, article_url)
                     if extracted:
                         for item in extracted:
                             if item.get('is_record'):
-                                item.update({
-                                    "id": f"n_{int(time.time())}_{len(data)}", 
-                                    "source_url": article_url, 
-                                    "date": datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
-                                })
+                                item.update({"id": f"n_{int(time.time())}_{len(data)}", "source_url": article_url, "date": datetime.datetime.now().strftime("%Y/%m/%d %H:%M")})
                                 data.insert(0, item)
                         processed_urls.append(article_url)
-        except Exception as e: print(f"Error at {nt['name']}: {e}")
+        except Exception as e:
+            print(f"  Error at {nt['name']}: {e}")
 
-    # --- 2. World Athletics（時差対策版） ---
+    # World Athletics（略）
     base_date = datetime.datetime.now()
-    target_days = [
-        (base_date - datetime.timedelta(days=1)).strftime("%d %b %Y").lstrip('0'),
-        base_date.strftime("%d %b %Y").lstrip('0'),
-        (base_date + datetime.timedelta(days=1)).strftime("%d %b %Y").lstrip('0')
-    ]
-    print(f"Checking WA for range: {target_days}")
-
+    target_days = [(base_date + datetime.timedelta(days=i)).strftime("%d %b %Y").lstrip('0') for i in range(-1, 2)]
+    print(f"Checking WA for: {target_days}")
     try:
         res = requests.get(URL_WA_CALENDAR, timeout=15)
         soup = BeautifulSoup(res.text, 'lxml')
-        rows = soup.select('table tbody tr')
-        for row in rows:
+        for row in soup.select('table tbody tr'):
             date_cell = row.find('td', {'data-th': 'Date'})
-            if not date_cell: continue
-            if not any(day in date_cell.get_text() for day in target_days): continue
-            
-            btn = row.find('a', string=lambda t: t and 'Result' in t)
-            if not btn: continue
-            r_url = btn['href'] if btn['href'].startswith('http') else "https://worldathletics.org" + btn['href']
-            
-            if r_url not in processed_urls:
-                print(f"  Found Result: {r_url}")
-                content = get_page_content(r_url, '.results-table, table')
-                extracted = analyze_with_gemini(content, r_url)
-                if extracted:
-                    for item in extracted:
-                        if item.get('is_record'):
-                            item.update({
-                                "id": f"wa_{int(time.time())}_{len(data)}", 
-                                "source_url": r_url, 
-                                "date": datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
-                            })
-                            data.insert(0, item)
-                    processed_urls.append(r_url)
-    except Exception as e: print(f"WA Error: {e}")
+            if date_cell and any(day in date_cell.get_text() for day in target_days):
+                btn = row.find('a', string=lambda t: t and 'Result' in t)
+                if btn:
+                    r_url = btn['href'] if btn['href'].startswith('http') else "https://worldathletics.org" + btn['href']
+                    if r_url not in processed_urls:
+                        print(f"  Found WA: {r_url}")
+                        content = get_page_content(r_url, '.results-table, table')
+                        extracted = analyze_with_gemini(content, r_url)
+                        for item in extracted:
+                            if item.get('is_record'):
+                                item.update({"id": f"wa_{int(time.time())}_{len(data)}", "source_url": r_url, "date": datetime.datetime.now().strftime("%Y/%m/%d %H:%M")})
+                                data.insert(0, item)
+                        processed_urls.append(r_url)
+    except Exception as e: print(f"  WA Error: {e}")
 
-    # 保存（最新300件に拡張）
     with open('data.json', 'w', encoding='utf-8') as f:
         json.dump(data[:300], f, ensure_ascii=False, indent=2)
-    print(f"Update complete. Total items: {len(data)}")
+    print(f"Process finished. Total items: {len(data)}")
 
 if __name__ == "__main__":
     main()
