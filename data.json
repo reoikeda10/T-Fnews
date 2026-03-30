@@ -1,6 +1,38 @@
 [
   {
     "is_record": true,
+    "category": "ハードル",
+    "event": "60mH",
+    "name": "Deyvonne Charlton",
+    "time": "7.65",
+    "score": 9,
+    "nationality": "Bahamas",
+    "age": null,
+    "location": "2026 World Indoor Championships",
+    "wind": null,
+    "comment": "Tied the World Record at the 2026 World Indoor Championships.",
+    "id": "n_1774911633_87",
+    "source_url": "https://www.flotrack.org/articles/15741957-masai-russell-headlines-stacked-100mh-at-xiamen-diamond-league",
+    "date": "2026/03/30 23:00"
+  },
+  {
+    "is_record": true,
+    "category": "ハードル",
+    "event": "100mH",
+    "name": "Tobi Amusan",
+    "time": "12.12",
+    "score": 10,
+    "nationality": "Nigeria",
+    "age": null,
+    "location": "Eugene",
+    "wind": null,
+    "comment": "2022 World Championships set the current World Record.",
+    "id": "n_1774911633_86",
+    "source_url": "https://www.flotrack.org/articles/15741957-masai-russell-headlines-stacked-100mh-at-xiamen-diamond-league",
+    "date": "2026/03/30 23:00"
+  },
+  {
+    "is_record": true,
     "category": "跳躍",
     "event": "棒高跳",
     "name": "Mondo Duplantis",
