@@ -31,7 +31,7 @@
             color: var(--primary-color);
             font-size: 2.2em;
             letter-spacing: -1px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         /* 検索とフィルターエリア */
@@ -56,133 +56,80 @@
             width: 100%;
             box-sizing: border-box;
             outline: none;
-            transition: border-color 0.3s;
         }
 
-        .search-bar:focus { border-color: var(--primary-color); }
+        .filter-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
         .categories { display: flex; flex-wrap: wrap; gap: 8px; }
 
         .cat-btn {
-            padding: 8px 18px;
+            padding: 6px 14px;
             border: 1px solid #ddd;
             background: white;
-            border-radius: 25px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.2s;
+            font-size: 0.85em;
         }
 
         .cat-btn.active {
             background: var(--primary-color);
             color: white;
             border-color: var(--primary-color);
+        }
+
+        /* 並び替えスイッチ */
+        .sort-controls {
+            display: flex;
+            background: #eee;
+            border-radius: 8px;
+            padding: 2px;
+        }
+
+        .sort-btn {
+            border: none;
+            background: none;
+            padding: 6px 12px;
+            font-size: 0.8em;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .sort-btn.active {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             font-weight: bold;
         }
 
-        /* 記録カード */
+        /* カード */
         .card {
             background: var(--card-bg);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             border-left: 6px solid #ccc;
-            transition: transform 0.2s;
         }
 
-        .card:hover { transform: translateY(-3px); }
+        .event-tag { font-size: 0.75em; color: var(--primary-color); font-weight: bold; margin-bottom: 5px; }
+        .name-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 5px; }
+        .name { font-size: 1.2em; font-weight: bold; color: var(--secondary-color); }
+        .badge { font-size: 0.7em; background: #f0f0f0; padding: 2px 8px; border-radius: 4px; color: var(--text-sub); }
+        .time-row { display: flex; align-items: baseline; gap: 10px; margin: 5px 0; }
+        .time { font-size: 2em; font-weight: 900; color: #222; }
+        .wind { font-size: 1em; color: var(--text-sub); }
+        .comment { font-size: 0.9em; color: #444; background: #f9f9f9; padding: 8px; border-radius: 6px; margin-top: 5px; }
+        .meta-info { display: flex; justify-content: space-between; font-size: 0.8em; color: #999; margin-top: 12px; border-top: 1px solid #eee; padding-top: 10px; }
+        .score-stars { color: var(--gold); }
 
-        .event-tag {
-            font-size: 0.8em;
-            color: var(--primary-color);
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
+        .max-record { border-left: 8px solid var(--gold); background: #fffdf0; }
 
-        .name-row {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-
-        .name { font-size: 1.4em; font-weight: bold; color: var(--secondary-color); }
-
-        /* バッジ類 */
-        .badge {
-            font-size: 0.75em;
-            background: #f0f0f0;
-            padding: 3px 10px;
-            border-radius: 5px;
-            color: var(--text-sub);
-            font-weight: normal;
-        }
-
-        .record-row {
-            display: flex;
-            align-items: baseline;
-            gap: 15px;
-            margin: 10px 0;
-        }
-
-        .time {
-            font-size: 2.4em;
-            font-weight: 900;
-            color: #222;
-            line-height: 1;
-        }
-
-        .wind { font-size: 1.1em; color: var(--text-sub); font-weight: normal; }
-
-        .comment {
-            background: #f9f9f9;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.95em;
-            color: #444;
-            border-left: 3px solid #eee;
-        }
-
-        .meta-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-            font-size: 0.85em;
-            color: #999;
-            border-top: 1px solid #eee;
-            padding-top: 12px;
-        }
-
-        .score-stars { color: var(--gold); font-weight: bold; letter-spacing: 2px; }
-
-        /* MAX記録（スコア10）の特別装飾 */
-        .max-record {
-            background: linear-gradient(135deg, #fffdf0, #ffffff);
-            border: 2px solid var(--gold);
-            border-left: 10px solid var(--gold);
-            position: relative;
-        }
-
-        .max-record::after {
-            content: '🔥 伝説的記録 / SCORE 10';
-            position: absolute;
-            top: -12px;
-            right: 20px;
-            background: var(--gold);
-            color: #000;
-            font-size: 0.7em;
-            font-weight: 900;
-            padding: 2px 12px;
-            border-radius: 5px;
-        }
-
-        .max-record .time { color: var(--primary-color); }
-
-        #error-msg { color: red; background: #fee; padding: 15px; border-radius: 10px; display: none; margin-bottom: 20px; }
+        #error-msg { color: red; background: #fee; padding: 15px; border-radius: 10px; display: none; }
     </style>
 </head>
 <body>
@@ -192,41 +139,45 @@
     <div id="error-msg"></div>
 
     <div class="controls">
-        <input type="text" id="searchInput" class="search-bar" placeholder="選手名、国籍、大会名、U20などで検索...">
-        <div class="categories" id="catGroup">
-            <button class="cat-btn active" data-cat="すべて">すべて</button>
-            <button class="cat-btn" data-cat="短距離">短距離</button>
-            <button class="cat-btn" data-cat="ハードル">ハードル</button>
-            <button class="cat-btn" data-cat="中距離">中距離</button>
-            <button class="cat-btn" data-cat="長距離">長距離</button>
-            <button class="cat-btn" data-cat="跳躍">跳躍</button>
-            <button class="cat-btn" data-cat="投擲">投擲</button>
-            <button class="cat-btn" data-cat="ロード">ロード</button>
+        <input type="text" id="searchInput" class="search-bar" placeholder="選手、国籍、大会名で検索...">
+        
+        <div class="filter-row">
+            <div class="categories">
+                <button class="cat-btn active" data-cat="すべて">すべて</button>
+                <button class="cat-btn" data-cat="短距離">短距離</button>
+                <button class="cat-btn" data-cat="長距離">長距離</button>
+                <button class="cat-btn" data-cat="跳躍">跳躍</button>
+                <button class="cat-btn" data-cat="投擲">投擲</button>
+            </div>
+
+            <div class="sort-controls">
+                <button class="sort-btn active" id="sortMax">注目順</button>
+                <button class="sort-btn" id="sortNew">最新順</button>
+            </div>
         </div>
     </div>
 
     <div id="maxRecordsContainer"></div>
-    <div id="newsContainer">読み込み中...</div>
+    <div id="newsContainer"></div>
 </div>
 
 <script>
     let allData = [];
     let currentCategory = "すべて";
+    let currentSort = "max"; // "max" or "new"
 
     async function loadData() {
         try {
             const response = await fetch('data.json?t=' + Date.now());
-            if (!response.ok) throw new Error('データファイルが見つかりません');
             allData = await response.json();
             renderData();
         } catch (err) {
-            const errDiv = document.getElementById('error-msg');
-            errDiv.style.display = 'block';
-            errDiv.innerText = 'エラー: ' + err.message;
-            document.getElementById('newsContainer').innerText = '';
+            document.getElementById('error-msg').style.display = 'block';
+            document.getElementById('error-msg').innerText = 'データの読み込みに失敗しました。';
         }
     }
 
+    // 検索・フィルタ・ソートのイベント
     document.getElementById('searchInput').addEventListener('input', renderData);
     document.querySelectorAll('.cat-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -237,67 +188,76 @@
         });
     });
 
+    document.getElementById('sortMax').addEventListener('click', () => {
+        currentSort = "max";
+        document.getElementById('sortMax').classList.add('active');
+        document.getElementById('sortNew').classList.remove('active');
+        renderData();
+    });
+
+    document.getElementById('sortNew').addEventListener('click', () => {
+        currentSort = "new";
+        document.getElementById('sortNew').classList.add('active');
+        document.getElementById('sortMax').classList.remove('active');
+        renderData();
+    });
+
     function renderData() {
         const container = document.getElementById('newsContainer');
         const maxContainer = document.getElementById('maxRecordsContainer');
         const searchWord = document.getElementById('searchInput').value.toLowerCase();
-        const now = new Date();
-
+        
         container.innerHTML = '';
         maxContainer.innerHTML = '';
 
-        if (!allData || allData.length === 0) {
-            container.innerHTML = '<p style="text-align:center; color:#999;">表示する記録がありません</p>';
-            return;
+        // フィルタリング
+        let filtered = allData.filter(item => {
+            const text = `${item.name} ${item.event} ${item.nationality} ${item.location}`.toLowerCase();
+            const matchSearch = !searchWord || text.includes(searchWord);
+            const matchCat = currentCategory === "すべて" || item.category === currentCategory;
+            return matchSearch && matchCat;
+        });
+
+        // 並び替えロジック
+        if (currentSort === "new") {
+            // 最新順: data.jsonの順序（または日付比較）
+            filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+        } else {
+            // 注目順: スコアが高い順
+            filtered.sort((a, b) => (b.score || 0) - (a.score || 0));
         }
 
-        allData.forEach(item => {
-            // 検索フィルタ（国、場所、コメントなど全項目を対象に）
-            const searchableText = [
-                item.event, item.name, item.nationality, item.location, 
-                item.category, item.comment, item.age
-            ].join(' ').toLowerCase();
+        filtered.forEach(item => {
+            const stars = '★'.repeat(item.score || 0) + '☆'.repeat(Math.max(0, 10 - (item.score || 0)));
+            const isMax = item.score >= 9;
 
-            if (searchWord && !searchableText.includes(searchWord)) return;
-            if (currentCategory !== "すべて" && item.category !== currentCategory) return;
-
-            // スコア10 & 3日以内をMAX判定
-            const itemDate = new Date(item.date.replace(/\//g, '-'));
-            const isRecent = (now - itemDate) <= (3 * 24 * 60 * 60 * 1000);
-            const isMax = (item.score >= 10 && isRecent);
-
-            // 星の生成 (10段階)
-            const starCount = Math.min(10, Math.max(0, item.score || 0));
-            const stars = '★'.repeat(starCount) + '☆'.repeat(10 - starCount);
-
-            const cardHtml = `
-                <div class="card ${isMax ? 'max-record' : ''}">
-                    <div class="event-tag">${item.category || 'TRACK'} | ${item.event}</div>
+            const html = `
+                <div class="card ${isMax && currentSort === 'max' ? 'max-record' : ''}">
+                    <div class="event-tag">${item.category} | ${item.event}</div>
                     <div class="name-row">
                         <span class="name">${item.name}</span>
-                        ${item.nationality ? `<span class="badge">🌍 ${item.nationality}</span>` : ''}
-                        ${item.age ? `<span class="badge">🎂 ${item.age}</span>` : ''}
+                        ${item.nationality ? `<span class="badge">${item.nationality}</span>` : ''}
                         ${item.location ? `<span class="badge">📍 ${item.location}</span>` : ''}
                     </div>
-                    <div class="record-row">
+                    <div class="time-row">
                         <span class="time">${item.time}</span>
                         ${item.wind ? `<span class="wind">(${item.wind})</span>` : ''}
                     </div>
-                    ${item.comment ? `<div class="comment">${item.comment}</div>` : ''}
+                    <div class="comment">${item.comment}</div>
                     <div class="meta-info">
-                        <span class="score-stars">SCORE: ${item.score}/10 ${stars}</span>
-                        <span>Update: ${item.date}</span>
+                        <span class="score-stars">${stars} (${item.score}/10)</span>
+                        <span>${item.date}</span>
                     </div>
                 </div>
             `;
-
-            if (isMax) maxContainer.innerHTML += cardHtml;
-            else container.innerHTML += cardHtml;
+            
+            // 注目順かつハイスコアなら上のコンテナへ、そうでなければ下のコンテナへ
+            if (currentSort === 'max' && isMax) maxContainer.innerHTML += html;
+            else container.innerHTML += html;
         });
     }
 
     loadData();
 </script>
-
 </body>
 </html>
