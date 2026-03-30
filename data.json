@@ -1,1 +1,98 @@
-
+[
+  {
+    "is_record": true,
+    "category": "長距離",
+    "event": "女子10000m",
+    "name": "Allie Buchalski",
+    "time": "31:29.06",
+    "score": 7,
+    "comment": "31分29秒台で3位入賞",
+    "id": "news_1774831444_7",
+    "source_url": "https://www.flotrack.org/articles/15728499-shelby-houlihan-runs-10th-fastest-10k-in-american-history-at-the-ten",
+    "date": "2026/03/30 00:44"
+  },
+  {
+    "is_record": true,
+    "category": "長距離",
+    "event": "女子10000m",
+    "name": "Jess McClain",
+    "time": "31:15.49",
+    "score": 7,
+    "comment": "31分15秒台で準優勝の好走",
+    "id": "news_1774831444_6",
+    "source_url": "https://www.flotrack.org/articles/15728499-shelby-houlihan-runs-10th-fastest-10k-in-american-history-at-the-ten",
+    "date": "2026/03/30 00:44"
+  },
+  {
+    "is_record": true,
+    "category": "長距離",
+    "event": "女子10000m",
+    "name": "Shelby Houlihan",
+    "time": "30:50.10",
+    "score": 8,
+    "comment": "10kデビューで米歴代10位の好記録",
+    "id": "news_1774831444_5",
+    "source_url": "https://www.flotrack.org/articles/15728499-shelby-houlihan-runs-10th-fastest-10k-in-american-history-at-the-ten",
+    "date": "2026/03/30 00:44"
+  },
+  {
+    "is_record": true,
+    "category": "中距離",
+    "event": "女子1500m",
+    "name": "Gabbi Jennings",
+    "time": "4:07.69",
+    "score": 7,
+    "comment": "見事なスパートで優勝",
+    "id": "news_1774831442_4",
+    "source_url": "https://www.flotrack.org/articles/15728569-national-10k-records-set-at-sound-running-the-ten-2026-full-pro-results",
+    "date": "2026/03/30 00:44"
+  },
+  {
+    "is_record": true,
+    "category": "中距離",
+    "event": "男子1500m",
+    "name": "Oliver Hoare",
+    "time": "3:35.82",
+    "score": 8,
+    "comment": "激戦を制した好タイム",
+    "id": "news_1774831442_3",
+    "source_url": "https://www.flotrack.org/articles/15728569-national-10k-records-set-at-sound-running-the-ten-2026-full-pro-results",
+    "date": "2026/03/30 00:44"
+  },
+  {
+    "is_record": true,
+    "category": "長距離",
+    "event": "女子10000m",
+    "name": "Shelby Houlihan",
+    "time": "30:50.10",
+    "score": 8,
+    "comment": "好タイムでの優勝",
+    "id": "news_1774831442_2",
+    "source_url": "https://www.flotrack.org/articles/15728569-national-10k-records-set-at-sound-running-the-ten-2026-full-pro-results",
+    "date": "2026/03/30 00:44"
+  },
+  {
+    "is_record": true,
+    "category": "長距離",
+    "event": "男子10000m",
+    "name": "Ky Robinson",
+    "time": "26:57.07",
+    "score": 9,
+    "comment": "オーストラリア新記録",
+    "id": "news_1774831442_1",
+    "source_url": "https://www.flotrack.org/articles/15728569-national-10k-records-set-at-sound-running-the-ten-2026-full-pro-results",
+    "date": "2026/03/30 00:44"
+  },
+  {
+    "is_record": true,
+    "category": "長距離",
+    "event": "男子10000m",
+    "name": "Mohamed Abdilaahi",
+    "time": "26:56.58",
+    "score": 9,
+    "comment": "ドイツ新記録での優勝",
+    "id": "news_1774831442_0",
+    "source_url": "https://www.flotrack.org/articles/15728569-national-10k-records-set-at-sound-running-the-ten-2026-full-pro-results",
+    "date": "2026/03/30 00:44"
+  }
+]
