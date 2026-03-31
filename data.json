@@ -1,6 +1,22 @@
 [
   {
     "is_record": true,
+    "category": "短距離",
+    "event": "300m",
+    "name": "Shawnti Jackson",
+    "time": "35.89",
+    "score": 6,
+    "nationality": "USA",
+    "age": null,
+    "location": "Hurricane Collegiate Invitational",
+    "wind": null,
+    "comment": "カレッジ記録を更新。LSUでのデビュー戦。",
+    "id": "n_1774966941_88",
+    "source_url": "https://www.flotrack.org/articles/15742149-the-weekend-recovery-early-success-in-the-outdoor-season",
+    "date": "2026/03/31 14:22"
+  },
+  {
+    "is_record": true,
     "category": "ハードル",
     "event": "60mH",
     "name": "Deyvonne Charlton",
