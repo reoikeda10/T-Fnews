@@ -1,6 +1,38 @@
 [
   {
     "is_record": true,
+    "category": "中距離",
+    "event": "800m",
+    "name": "Cooper Lutkenhaus",
+    "time": "1:42.27",
+    "score": 9,
+    "nationality": "USA",
+    "age": "16",
+    "location": "USA",
+    "wind": "N/A",
+    "comment": "U18 World Record set in 2025 at USATF Championships.",
+    "id": "n_1774979146_90",
+    "source_url": "https://www.flotrack.org/articles/15742456-phenom-cooper-lutkenhaus-will-make-diamond-league-debut-in-stockholm",
+    "date": "2026/03/31 17:45"
+  },
+  {
+    "is_record": true,
+    "category": "中距離",
+    "event": "800m",
+    "name": "Cooper Lutkenhaus",
+    "time": "1:44.03",
+    "score": 8,
+    "nationality": "USA",
+    "age": "17",
+    "location": "N/A",
+    "wind": "N/A",
+    "comment": "Indoor season performance, 6th fastest in world history, 2nd fastest in US history.",
+    "id": "n_1774979146_89",
+    "source_url": "https://www.flotrack.org/articles/15742456-phenom-cooper-lutkenhaus-will-make-diamond-league-debut-in-stockholm",
+    "date": "2026/03/31 17:45"
+  },
+  {
+    "is_record": true,
     "category": "短距離",
     "event": "300m",
     "name": "Shawnti Jackson",
