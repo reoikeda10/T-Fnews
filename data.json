@@ -1,6 +1,38 @@
 [
   {
     "is_record": true,
+    "category": "中距離",
+    "event": "800m",
+    "name": "Dalilah Muhammad",
+    "time": "2:04.51",
+    "score": 3,
+    "nationality": "アメリカ合衆国",
+    "age": null,
+    "location": null,
+    "wind": null,
+    "comment": "400mハードルの元世界記録保持者による800mの記録。トップレベルの800m専門選手と比較すると標準的な記録。",
+    "id": "n_1775053676_110",
+    "source_url": "https://www.flotrack.org/articles/15743356-penn-relays-2026-add-800m-hurdles-to-track-schedule",
+    "date": "2026/04/01 14:27"
+  },
+  {
+    "is_record": true,
+    "category": "中距離",
+    "event": "800m",
+    "name": "Femke Bol",
+    "time": "1:59.07",
+    "score": 5,
+    "nationality": "オランダ",
+    "age": null,
+    "location": "Metz",
+    "wind": null,
+    "comment": "World Athletics Indoor Tourでの記録。本職は400mハードルであり、800mへの挑戦として高く評価される。",
+    "id": "n_1775053676_109",
+    "source_url": "https://www.flotrack.org/articles/15743356-penn-relays-2026-add-800m-hurdles-to-track-schedule",
+    "date": "2026/04/01 14:27"
+  },
+  {
+    "is_record": true,
     "category": "長距離",
     "event": "3000m",
     "name": "増子陽太",
