@@ -1,6 +1,38 @@
 [
   {
     "is_record": true,
+    "category": "ハードル",
+    "event": "100m hurdles",
+    "name": "Nia Armstrong",
+    "time": "13.33",
+    "score": 4,
+    "nationality": "USA",
+    "age": "N/A",
+    "location": "FSU Relays",
+    "wind": "N/A",
+    "comment": "FSU Relaysでの自己ベスト記録。",
+    "id": "n_1775249972_124",
+    "source_url": "https://www.flotrack.org/articles/15744281-florida-relays-2026-preview-high-school-stars-ncaa-pro-races-to-watch",
+    "date": "2026/04/03 20:59"
+  },
+  {
+    "is_record": true,
+    "category": "短距離",
+    "event": "400m",
+    "name": "Quincy Wilson",
+    "time": "U20 World Record",
+    "score": 8,
+    "nationality": "USA",
+    "age": "U20",
+    "location": "N/A",
+    "wind": "N/A",
+    "comment": "U20世界記録保持者であり、ナショナルレコード保持者。",
+    "id": "n_1775249972_123",
+    "source_url": "https://www.flotrack.org/articles/15744281-florida-relays-2026-preview-high-school-stars-ncaa-pro-races-to-watch",
+    "date": "2026/04/03 20:59"
+  },
+  {
+    "is_record": true,
     "category": "中距離",
     "event": "1500M",
     "name": "Cole Hocker",
