@@ -1,6 +1,22 @@
 [
   {
     "is_record": true,
+    "category": "長距離",
+    "event": "5000m",
+    "name": "Beatrice Chebet",
+    "time": "13:58.06",
+    "score": 10,
+    "nationality": "Kenya",
+    "age": null,
+    "location": "Hayward Field, Eugene, Oregon",
+    "wind": null,
+    "comment": "世界記録",
+    "id": "n_1775343205_131",
+    "source_url": "https://www.flotrack.org/articles/15745059-womens-5000m-world-record-in-track-and-field-heres-what-to-know",
+    "date": "2026/04/04 22:53"
+  },
+  {
+    "is_record": true,
     "category": "中距離",
     "event": "Women's 1500m",
     "name": "Faith Kipyegon",
