@@ -1,6 +1,38 @@
 [
   {
     "is_record": true,
+    "category": "長距離",
+    "event": "5000m",
+    "name": "Habtom Samuel",
+    "time": "NCAA Record",
+    "score": 7,
+    "nationality": "Eritrea",
+    "age": "不明",
+    "location": "Bryan Clay Invitational",
+    "wind": "N/A",
+    "comment": "NCAA記録を更新",
+    "id": "n_1776538323_232",
+    "source_url": "https://www.flotrack.org/articles/15795998-jane-hedengren-habtom-samuel-break-ncaa-5k-records-at-bryan-clay-invite",
+    "date": "2026/04/18 18:52"
+  },
+  {
+    "is_record": true,
+    "category": "長距離",
+    "event": "5000m",
+    "name": "Jane Hedengren",
+    "time": "NCAA Record",
+    "score": 7,
+    "nationality": "USA",
+    "age": "不明",
+    "location": "Bryan Clay Invitational",
+    "wind": "N/A",
+    "comment": "NCAA記録を更新",
+    "id": "n_1776538323_231",
+    "source_url": "https://www.flotrack.org/articles/15795998-jane-hedengren-habtom-samuel-break-ncaa-5k-records-at-bryan-clay-invite",
+    "date": "2026/04/18 18:52"
+  },
+  {
+    "is_record": true,
     "category": "短距離",
     "event": "女子300m",
     "name": "岩田優奈",
