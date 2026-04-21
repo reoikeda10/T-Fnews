@@ -1,6 +1,22 @@
 [
   {
     "is_record": true,
+    "category": "ロード",
+    "event": "Boston Marathon",
+    "name": "Zouhair Talbi",
+    "time": "American Best",
+    "score": 8,
+    "nationality": "Morocco",
+    "age": null,
+    "location": "Boston",
+    "wind": null,
+    "comment": "Zouhair Talbi set an American Best performance at the Boston Marathon 2026.",
+    "id": "n_1776772783_300",
+    "source_url": "https://www.flotrack.org/articles/15810354-zouhair-talbi-sets-american-best-at-boston-marathon-2026",
+    "date": "2026/04/21 11:59"
+  },
+  {
+    "is_record": true,
     "category": "中距離",
     "event": "1500m",
     "name": "本田桜二郎",
@@ -4717,22 +4733,6 @@
     "wind": null,
     "comment": "学生歴代4位の好記録",
     "id": "n_1774835951_31",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e5%90%89%e7%94%b0%e7%a5%90%e4%b9%9f",
-    "date": "2026/03/30 01:59"
-  },
-  {
-    "is_record": true,
-    "category": "長距離",
-    "event": "3000m",
-    "name": "林田洋翔",
-    "time": "中学記録",
-    "score": 7,
-    "nationality": "日本",
-    "age": null,
-    "location": null,
-    "wind": null,
-    "comment": "16年に全中、国体、ジュニア五輪の3冠、3000m中学記録を樹立",
-    "id": "n_1774835951_30",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e5%90%89%e7%94%b0%e7%a5%90%e4%b9%9f",
     "date": "2026/03/30 01:59"
   }
