@@ -2,6 +2,22 @@
   {
     "is_record": true,
     "category": "長距離",
+    "event": "5000m",
+    "name": "Yihune Addisu",
+    "time": "12:57.32",
+    "score": 8,
+    "nationality": "エチオピア",
+    "age": "不明",
+    "location": "Xiamen",
+    "wind": "N/A",
+    "comment": "世界ランキングトップ（World Lead）を記録。",
+    "id": "n_1779540886_300",
+    "source_url": "https://www.flotrack.org/articles/15928397-yihune-addisu-runs-world-lead-125732-at-xiamen-diamond-league",
+    "date": "2026/05/23 12:54"
+  },
+  {
+    "is_record": true,
+    "category": "長距離",
     "event": "10000m",
     "name": "山口竣平",
     "time": "27分59秒47",
@@ -4780,22 +4796,6 @@
     "wind": null,
     "comment": "自己新記録",
     "id": "n_1778843552_340",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e6%9d%b1%e6%97%a5%e6%9c%ac%e5%ae%9f%e6%a5%ad%e5%9b%a3",
-    "date": "2026/05/15 11:12"
-  },
-  {
-    "is_record": true,
-    "category": "長距離",
-    "event": "10000m",
-    "name": "岡田開成",
-    "time": "13分19秒44",
-    "score": 7,
-    "nationality": "日本",
-    "age": null,
-    "location": "GGのべおか",
-    "wind": null,
-    "comment": "日本人学生歴代6位",
-    "id": "n_1778843552_339",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e6%9d%b1%e6%97%a5%e6%9c%ac%e5%ae%9f%e6%a5%ad%e5%9b%a3",
     "date": "2026/05/15 11:12"
   }
