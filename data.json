@@ -2,6 +2,22 @@
   {
     "is_record": true,
     "category": "短距離",
+    "event": "100mハードル",
+    "name": "Masai Russell",
+    "time": "American Record",
+    "score": 7,
+    "nationality": "United States",
+    "age": null,
+    "location": "Xiamen",
+    "wind": null,
+    "comment": "Lowers Her Own American Record",
+    "id": "n_1783377758_300",
+    "source_url": "https://www.flotrack.org/articles/15949182-2026-wanda-diamond-league-updated-standings",
+    "date": "2026/07/06 22:42"
+  },
+  {
+    "is_record": true,
+    "category": "短距離",
     "event": "100m",
     "name": "吉永優衣",
     "time": "11秒54",
@@ -4780,22 +4796,6 @@
     "wind": null,
     "comment": "高校国内国際最高記録。",
     "id": "n_1783239778_327",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e5%b8%83%e5%8b%a2%e3%82%b9%e3%83%97%e3%83%aa%e3%83%b3%e3%83%88",
-    "date": "2026/07/05 08:22"
-  },
-  {
-    "is_record": true,
-    "category": "長距離",
-    "event": "5000m",
-    "name": "山口竣平",
-    "time": "13分17秒19",
-    "score": 7,
-    "nationality": "日本",
-    "age": null,
-    "location": "ホクレンDC",
-    "wind": null,
-    "comment": "大幅自己新。",
-    "id": "n_1783239778_326",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e5%b8%83%e5%8b%a2%e3%82%b9%e3%83%97%e3%83%aa%e3%83%b3%e3%83%88",
     "date": "2026/07/05 08:22"
   }
