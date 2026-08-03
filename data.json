@@ -1,6 +1,22 @@
 [
   {
     "is_record": true,
+    "category": "短距離",
+    "event": "200m",
+    "name": "Tate Taylor",
+    "time": "19.75",
+    "score": 8,
+    "nationality": "USA",
+    "age": "U20",
+    "location": "PRE Classic",
+    "wind": "不明",
+    "comment": "HS National Record（高校記録）を更新した驚異的なタイム",
+    "id": "n_1785792913_300",
+    "source_url": "https://www.flotrack.org/articles/16100284-world-athletics-u20-championships-full-schedule-2026",
+    "date": "2026/08/03 21:35"
+  },
+  {
+    "is_record": true,
     "category": "ロード",
     "event": "3000m Racewalk",
     "name": "Tyler Sorensen",
@@ -4719,21 +4735,5 @@
     "id": "n_1785182467_300",
     "source_url": "https://www.flotrack.org/articles/16087714-usatf-championships-2026-day-3-live-updates-results",
     "date": "2026/07/27 20:01"
-  },
-  {
-    "is_record": true,
-    "category": "ハードル",
-    "event": "女子100mH",
-    "name": "中尾あゆみ",
-    "time": "13.66",
-    "score": 3,
-    "nationality": "日本",
-    "age": null,
-    "location": "鳥取",
-    "wind": "-0.4",
-    "comment": "A決勝7位",
-    "id": "n_1785161156_330",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/211838",
-    "date": "2026/07/27 14:05"
   }
 ]
