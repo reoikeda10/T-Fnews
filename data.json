@@ -1,6 +1,22 @@
 [
   {
     "is_record": true,
+    "category": "ロード",
+    "event": "3000m Racewalk",
+    "name": "Sam Gibb",
+    "time": "Record",
+    "score": 3,
+    "nationality": "USA",
+    "age": "13",
+    "location": "Des Moines, Iowa",
+    "wind": null,
+    "comment": "13歳クラスの3000m競歩で新たな記録を樹立。",
+    "id": "n_1785819114_300",
+    "source_url": "https://www.flotrack.org/articles/16099810-aau-junior-olympics-track-and-field-2026-schedule-day-3",
+    "date": "2026/08/04 04:51"
+  },
+  {
+    "is_record": true,
     "category": "短距離",
     "event": "Women 200m",
     "name": "Kaila Jackson",
@@ -4717,22 +4733,6 @@
     "wind": null,
     "comment": "金メダル",
     "id": "n_1785188028_315",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/212083",
-    "date": "2026/07/27 21:33"
-  },
-  {
-    "is_record": true,
-    "category": "中距離",
-    "event": "男子1500m",
-    "name": "樋口諒",
-    "time": "3分54秒55",
-    "score": 3,
-    "nationality": "日本",
-    "age": "U23",
-    "location": "オルドス",
-    "wind": null,
-    "comment": "銅メダル",
-    "id": "n_1785188028_314",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/212083",
     "date": "2026/07/27 21:33"
   }
