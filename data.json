@@ -1,6 +1,22 @@
 [
   {
     "is_record": true,
+    "category": "跳躍",
+    "event": "Long Jump",
+    "name": "Asher Denman",
+    "time": "World Record (Age 9)",
+    "score": 3,
+    "nationality": "USA",
+    "age": "9",
+    "location": "Des Moines, Iowa",
+    "wind": "N/A",
+    "comment": "Boys 9-year-old Long Jump Mark broken at AAU Junior Olympics.",
+    "id": "n_1785952740_300",
+    "source_url": "https://www.flotrack.org/articles/16104053-aau-junior-olympic-track-and-field-games-2026-weather-delay",
+    "date": "2026/08/05 17:59"
+  },
+  {
+    "is_record": true,
     "category": "中距離",
     "event": "男子1500m",
     "name": "髙村比呂飛",
@@ -4780,22 +4796,6 @@
     "wind": null,
     "comment": "高校国内国際最高",
     "id": "n_1785410758_307",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/category/news/%e5%a4%a7%e4%bc%9a%e7%b5%90%e6%9e%9c",
-    "date": "2026/07/30 11:25"
-  },
-  {
-    "is_record": true,
-    "category": "長距離",
-    "event": "5000m",
-    "name": "山口竣平",
-    "time": "13分17秒19",
-    "score": 6,
-    "nationality": "日本",
-    "age": "大学生",
-    "location": "ホクレンDC千歳",
-    "wind": null,
-    "comment": "大幅自己新",
-    "id": "n_1785410758_306",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/category/news/%e5%a4%a7%e4%bc%9a%e7%b5%90%e6%9e%9c",
     "date": "2026/07/30 11:25"
   }
