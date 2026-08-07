@@ -2,6 +2,22 @@
   {
     "is_record": true,
     "category": "跳躍",
+    "event": "Long Jump (Boys 9-Year-Old)",
+    "name": "Asher Denman",
+    "time": "N/A",
+    "score": 1,
+    "nationality": "USA (推定)",
+    "age": "9",
+    "location": "Des Moines, Iowa",
+    "wind": "N/A",
+    "comment": "Boys 9-Year-Old Long Jump Mark at AAU Junior Olympicsにて記録を更新",
+    "id": "n_1786084791_300",
+    "source_url": "https://www.flotrack.org/articles/16104087-aau-junior-olympic-games-schedule-2026-100m-hurdles-f-100m-sf",
+    "date": "2026/08/07 06:39"
+  },
+  {
+    "is_record": true,
+    "category": "跳躍",
     "event": "三段跳",
     "name": "野澤和心",
     "time": "12m88",
@@ -4780,22 +4796,6 @@
     "wind": null,
     "comment": null,
     "id": "n_1785655530_340",
-    "source_url": "https://www.flotrack.org/articles/16095564-aau-junior-olympics-track-and-field-2026-results-schedule-events-age-divisions",
-    "date": "2026/08/02 07:25"
-  },
-  {
-    "is_record": true,
-    "category": "ロード",
-    "event": "1500m Race Walk",
-    "name": "Khylee Williams",
-    "time": "13:12.19",
-    "score": 2,
-    "nationality": "USA",
-    "age": "9",
-    "location": "Des Moines, Iowa",
-    "wind": null,
-    "comment": null,
-    "id": "n_1785655530_339",
     "source_url": "https://www.flotrack.org/articles/16095564-aau-junior-olympics-track-and-field-2026-results-schedule-events-age-divisions",
     "date": "2026/08/02 07:25"
   }
