@@ -1,6 +1,22 @@
 [
   {
     "is_record": true,
+    "category": "長距離",
+    "event": "5000m",
+    "name": "Jakob Ingebrigtsen",
+    "time": "13:15.29",
+    "score": 6,
+    "nationality": "Norway",
+    "age": null,
+    "location": "Birmingham, UK",
+    "wind": null,
+    "comment": "欧州選手権での優勝記録。手術復帰戦で4連覇を達成。",
+    "id": "n_1786975039_300",
+    "source_url": "https://www.flotrack.org/articles/16117029-jakob-ingebrigtsen-wins-2026-european-championships-5k-title",
+    "date": "2026/08/17 13:57"
+  },
+  {
+    "is_record": true,
     "category": "跳躍",
     "event": "三段跳",
     "name": "A.ディアス・ヘルナンデス",
@@ -4780,22 +4796,6 @@
     "wind": null,
     "comment": "区間新記録、5年連続区間賞",
     "id": "n_1786527340_311",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e4%ba%94%e5%b3%b6%e8%8e%89%e4%b9%83",
-    "date": "2026/08/12 09:35"
-  },
-  {
-    "is_record": true,
-    "category": "長距離",
-    "event": "10km",
-    "name": "工藤慎作",
-    "time": "28分27秒",
-    "score": 5,
-    "nationality": "日本",
-    "age": null,
-    "location": "ボストン",
-    "wind": null,
-    "comment": "8位入賞",
-    "id": "n_1786527340_310",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e4%ba%94%e5%b3%b6%e8%8e%89%e4%b9%83",
     "date": "2026/08/12 09:35"
   }
