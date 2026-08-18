@@ -1,6 +1,38 @@
 [
   {
     "is_record": true,
+    "category": "長距離",
+    "event": "5000m",
+    "name": "Jakob Ingebrigtsen",
+    "time": "Gold",
+    "score": 8,
+    "nationality": "Norway",
+    "age": null,
+    "location": "European Athletic Championships",
+    "wind": null,
+    "comment": "Won Gold in the 5000m at the European Athletic Championships.",
+    "id": "n_1787093141_301",
+    "source_url": "https://www.flotrack.org/articles/16135564-heres-every-scenario-where-jakob-ingebrigtsen-and-josh-kerr-race",
+    "date": "2026/08/18 22:45"
+  },
+  {
+    "is_record": true,
+    "category": "中距離",
+    "event": "Mile",
+    "name": "Josh Kerr",
+    "time": "World Record",
+    "score": 10,
+    "nationality": "Great Britain",
+    "age": null,
+    "location": "London",
+    "wind": null,
+    "comment": "Set the world record for the mile at Diamond League London.",
+    "id": "n_1787093141_300",
+    "source_url": "https://www.flotrack.org/articles/16135564-heres-every-scenario-where-jakob-ingebrigtsen-and-josh-kerr-race",
+    "date": "2026/08/18 22:45"
+  },
+  {
+    "is_record": true,
     "category": "中距離",
     "event": "800m",
     "name": "Audrey Werro",
@@ -4766,37 +4798,5 @@
     "id": "n_1786943046_305",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e5%b1%b1%e6%9c%ac%e6%9c%89%e7%9c%9f",
     "date": "2026/08/17 05:04"
-  },
-  {
-    "is_record": true,
-    "category": "ハードル",
-    "event": "100mH",
-    "name": "青木益未",
-    "time": "12秒68",
-    "score": 7,
-    "nationality": "日本",
-    "age": null,
-    "location": "富士北麓ワールドトライアル",
-    "wind": null,
-    "comment": "従来の日本記録上回る",
-    "id": "n_1786943038_304",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/214186",
-    "date": "2026/08/17 05:03"
-  },
-  {
-    "is_record": true,
-    "category": "ハードル",
-    "event": "110mH",
-    "name": "野本周成",
-    "time": "13秒11",
-    "score": 7,
-    "nationality": "日本",
-    "age": null,
-    "location": "福井ナイトゲームズ",
-    "wind": null,
-    "comment": "自己新記録",
-    "id": "n_1786943038_303",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/214186",
-    "date": "2026/08/17 05:03"
   }
 ]
