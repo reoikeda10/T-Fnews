@@ -1,6 +1,22 @@
 [
   {
     "is_record": true,
+    "category": "中距離",
+    "event": "1 Mile",
+    "name": "Josh Kerr",
+    "time": "World Record",
+    "score": 10,
+    "nationality": "Great Britain",
+    "age": null,
+    "location": "London",
+    "wind": null,
+    "comment": "SMASHED the World Record at the London Diamond League meeting.",
+    "id": "n_1788624513_300",
+    "source_url": "https://www.flotrack.org/articles/16159532-noah-lyles-ends-2026-season-early-due-to-injury",
+    "date": "2026/09/05 16:08"
+  },
+  {
+    "is_record": true,
     "category": "ハードル",
     "event": "110mH",
     "name": "古賀ジェレミー",
@@ -4761,22 +4777,6 @@
     "comment": "自己新記録",
     "id": "n_1788415096_325",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e5%b1%b1%e5%8f%a3%e6%99%ba%e8%a6%8f",
-    "date": "2026/09/03 05:58"
-  },
-  {
-    "is_record": true,
-    "category": "短距離",
-    "event": "女子200m",
-    "name": "山田奈央",
-    "time": "23秒91",
-    "score": 5,
-    "nationality": "日本",
-    "age": "16",
-    "location": "滋賀IH",
-    "wind": null,
-    "comment": "高1最高記録。",
-    "id": "n_1788415087_324",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e5%b0%8f%e6%b1%a0%e7%a5%90%e8%b2%b4",
     "date": "2026/09/03 05:58"
   }
 ]
