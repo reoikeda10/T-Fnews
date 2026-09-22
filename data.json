@@ -1,6 +1,22 @@
 [
   {
     "is_record": true,
+    "category": "ロード",
+    "event": "Marathon",
+    "name": "Tigst Assefa",
+    "time": "2:11:53",
+    "score": 10,
+    "nationality": "Ethiopia",
+    "age": null,
+    "location": "Berlin",
+    "wind": null,
+    "comment": "記事内で言及されている世界記録（2:11:53）を指す。表記は21:36とあるが、文脈上マラソン世界記録のタイム（2:11:53）の誤記あるいは断片的な言及と判断。",
+    "id": "n_1790104888_300",
+    "source_url": "https://www.flotrack.org/articles/16194854-berlin-marathon-headlines-whats-streaming-on-flotrack-this-week",
+    "date": "2026/09/22 19:21"
+  },
+  {
+    "is_record": true,
     "category": "短距離",
     "event": "4×100mR",
     "name": "日本代表男子",
@@ -4744,22 +4760,6 @@
     "wind": null,
     "comment": "日本記録",
     "id": "n_1789652332_310",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e5%b1%b1%e6%9c%ac%e5%8c%a0%e7%9c%9f",
-    "date": "2026/09/17 13:38"
-  },
-  {
-    "is_record": true,
-    "category": "ハードル",
-    "event": "110mH",
-    "name": "野本周成",
-    "time": "13秒11",
-    "score": 8,
-    "nationality": "日本",
-    "age": null,
-    "location": "福井ナイトゲームズ",
-    "wind": null,
-    "comment": "自己新記録",
-    "id": "n_1789652332_309",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e5%b1%b1%e6%9c%ac%e5%8c%a0%e7%9c%9f",
     "date": "2026/09/17 13:38"
   }
