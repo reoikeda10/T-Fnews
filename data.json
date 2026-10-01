@@ -1,6 +1,22 @@
 [
   {
     "is_record": true,
+    "category": "長距離",
+    "event": "XC",
+    "name": "Billah Jepkirui",
+    "time": "19:24.4",
+    "score": 5,
+    "nationality": "Unknown",
+    "age": null,
+    "location": "Cowboy Jamboree",
+    "wind": null,
+    "comment": "Set the meeting and course record.",
+    "id": "n_1790897700_300",
+    "source_url": "https://www.flotrack.org/articles/16215653-the-weekend-recovery-assefas-marathon-cross-country-upsets",
+    "date": "2026/10/01 23:35"
+  },
+  {
+    "is_record": true,
     "category": "中距離",
     "event": "男子800m",
     "name": "クレイ・アーロン竜波",
@@ -4664,22 +4680,6 @@
     "wind": null,
     "comment": "決勝進出",
     "id": "n_1790640069_319",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/218140",
-    "date": "2026/09/29 00:01"
-  },
-  {
-    "is_record": true,
-    "category": "短距離",
-    "event": "男女混合4×100mリレー",
-    "name": "小室, 井戸アビゲイル風果, 桐生, 御家瀬",
-    "time": "41秒70",
-    "score": 6,
-    "nationality": "日本",
-    "age": null,
-    "location": "名古屋",
-    "wind": null,
-    "comment": "決勝進出",
-    "id": "n_1790640069_318",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/218140",
     "date": "2026/09/29 00:01"
   }
