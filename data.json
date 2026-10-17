@@ -1,6 +1,38 @@
 [
   {
     "is_record": true,
+    "category": "長距離",
+    "event": "6k",
+    "name": "Brighter Jepchumba",
+    "time": "19:14.0",
+    "score": 4,
+    "nationality": "Kenya",
+    "age": null,
+    "location": "Terre Haute",
+    "wind": null,
+    "comment": "以前のコースレコード",
+    "id": "n_1792265596_301",
+    "source_url": "https://www.flotrack.org/articles/16252831-byu-women-hand-nc-state-first-loss-since-2024-without-hedengren-syracuse-men-win-pre-nationals",
+    "date": "2026/10/17 19:33"
+  },
+  {
+    "is_record": true,
+    "category": "長距離",
+    "event": "6k",
+    "name": "Hannah Gapes",
+    "time": "18:57.6",
+    "score": 5,
+    "nationality": "USA",
+    "age": "senior",
+    "location": "Terre Haute",
+    "wind": null,
+    "comment": "コースレコード",
+    "id": "n_1792265596_300",
+    "source_url": "https://www.flotrack.org/articles/16252831-byu-women-hand-nc-state-first-loss-since-2024-without-hedengren-syracuse-men-win-pre-nationals",
+    "date": "2026/10/17 19:33"
+  },
+  {
+    "is_record": true,
     "category": "ロード",
     "event": "Marathon",
     "name": "Maddie Block",
@@ -4502,33 +4534,5 @@
     "id": "n_1791797352_325",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/219228",
     "date": "2026/10/12 09:29"
-  },
-  {
-    "is_record": true,
-    "category": "長距離",
-    "event": "5000m",
-    "name": "佐藤蓮",
-    "time": "14分01秒82",
-    "score": 4,
-    "nationality": "日本",
-    "age": null,
-    "location": "出雲市陸協記録会",
-    "wind": null,
-    "comment": "「もうひとつの出雲駅伝」でトップの成績を収める。",
-    "id": "n_1791797352_324",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/219228",
-    "date": "2026/10/12 09:29"
-  },
-  {
-    "is_record": true,
-    "category": "ロード",
-    "event": "マラソン",
-    "name": "Haftu Knight",
-    "time": "2:07:38",
-    "score": 5,
-    "nationality": "USA",
-    "id": "n_1791797337_323",
-    "source_url": "https://www.flotrack.org/articles/16233980-chicago-marathon-prediction-and-picks-what-is-in-store",
-    "date": "2026/10/12 09:28"
   }
 ]
