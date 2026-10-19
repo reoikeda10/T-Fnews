@@ -1,6 +1,38 @@
 [
   {
     "is_record": true,
+    "category": "ロード",
+    "event": "Amsterdam Marathon",
+    "name": "Buze Diriba",
+    "time": "2:16:12",
+    "score": 7,
+    "nationality": "エチオピア",
+    "age": "32",
+    "location": "Amsterdam",
+    "wind": null,
+    "comment": "大会新記録。従来の記録を41秒更新",
+    "id": "n_1792454389_301",
+    "source_url": "https://www.flotrack.org/articles/16267318-the-weekend-recovery-pre-nationals-and-amsterdam-marathon",
+    "date": "2026/10/19 23:59"
+  },
+  {
+    "is_record": true,
+    "category": "長距離",
+    "event": "5k",
+    "name": "Marcelo Mantecon",
+    "time": "14:24.00",
+    "score": 4,
+    "nationality": "アメリカ",
+    "age": "高校生",
+    "location": "New World Fall Spectacular",
+    "wind": null,
+    "comment": "フロリダ州高校記録およびコース記録",
+    "id": "n_1792454389_300",
+    "source_url": "https://www.flotrack.org/articles/16267318-the-weekend-recovery-pre-nationals-and-amsterdam-marathon",
+    "date": "2026/10/19 23:59"
+  },
+  {
+    "is_record": true,
     "category": "短距離",
     "event": "4×100mR",
     "name": "市柏高",
@@ -4501,38 +4533,6 @@
     "comment": "4位",
     "id": "n_1792127616_310",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e5%b1%b1%e7%b8%a3%e4%ba%ae%e5%a4%aa",
-    "date": "2026/10/16 05:13"
-  },
-  {
-    "is_record": true,
-    "category": "ハードル",
-    "event": "110mH",
-    "name": "野本周成",
-    "time": "13秒39",
-    "score": 7,
-    "nationality": "日本",
-    "age": "不明",
-    "location": "あおもり国スポ",
-    "wind": null,
-    "comment": "成年男子",
-    "id": "n_1792127613_309",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/219496",
-    "date": "2026/10/16 05:13"
-  },
-  {
-    "is_record": true,
-    "category": "ロード",
-    "event": "マラソン",
-    "name": "赤﨑暁",
-    "time": "2時間05分48秒",
-    "score": 7,
-    "nationality": "日本",
-    "age": "不明",
-    "location": "シカゴマラソン",
-    "wind": null,
-    "comment": "日本歴代6位",
-    "id": "n_1792127613_308",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/219496",
     "date": "2026/10/16 05:13"
   }
 ]
