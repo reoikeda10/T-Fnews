@@ -1,6 +1,38 @@
 [
   {
     "is_record": true,
+    "category": "ロード",
+    "event": "女子マラソン競歩",
+    "name": "レベッカ・ヘンダーソン",
+    "time": "3時間14分52秒",
+    "score": 10,
+    "nationality": "豪州",
+    "age": null,
+    "location": "高畠町",
+    "wind": null,
+    "comment": "世界新記録（オープン参加）",
+    "id": "n_1792952961_301",
+    "source_url": "https://www.rikujyokyogi.co.jp/archives/220471",
+    "date": "2026/10/25 18:29"
+  },
+  {
+    "is_record": true,
+    "category": "ロード",
+    "event": "男子マラソン競歩",
+    "name": "川野将虎",
+    "time": "2時間55分14秒",
+    "score": 10,
+    "nationality": "日本",
+    "age": null,
+    "location": "高畠町",
+    "wind": null,
+    "comment": "世界新記録（初代世界記録保持者）、大会新",
+    "id": "n_1792952961_300",
+    "source_url": "https://www.rikujyokyogi.co.jp/archives/220471",
+    "date": "2026/10/25 18:29"
+  },
+  {
+    "is_record": true,
     "category": "ハードル",
     "event": "100mH",
     "name": "江口美玲",
@@ -4716,30 +4748,6 @@
     "score": 6,
     "nationality": "Uruguay",
     "id": "n_1792245869_354",
-    "source_url": "https://www.flotrack.org/articles/16254996-2026-new-york-city-marathon-elite-entries-here-is-whos-running",
-    "date": "2026/10/17 14:04"
-  },
-  {
-    "is_record": true,
-    "category": "ロード",
-    "event": "Marathon",
-    "name": "Lauren Hagans",
-    "time": "2:25:47",
-    "score": 6,
-    "nationality": "USA",
-    "id": "n_1792245869_353",
-    "source_url": "https://www.flotrack.org/articles/16254996-2026-new-york-city-marathon-elite-entries-here-is-whos-running",
-    "date": "2026/10/17 14:04"
-  },
-  {
-    "is_record": true,
-    "category": "ロード",
-    "event": "Marathon",
-    "name": "Amanda Vestri",
-    "time": "2:24:49",
-    "score": 6,
-    "nationality": "USA",
-    "id": "n_1792245869_352",
     "source_url": "https://www.flotrack.org/articles/16254996-2026-new-york-city-marathon-elite-entries-here-is-whos-running",
     "date": "2026/10/17 14:04"
   }
