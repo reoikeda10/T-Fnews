@@ -1,6 +1,38 @@
 [
   {
     "is_record": true,
+    "category": "ロード",
+    "event": "マラソン競歩",
+    "name": "レベッカ・ヘンダーソン",
+    "time": "3時間14分52秒",
+    "score": 10,
+    "nationality": "オーストラリア",
+    "age": null,
+    "location": "高畠町",
+    "wind": null,
+    "comment": "世界新記録（オープン参加）",
+    "id": "n_1794522726_301",
+    "source_url": "https://www.rikujyokyogi.co.jp/archives/220471",
+    "date": "2026/11/12 22:32"
+  },
+  {
+    "is_record": true,
+    "category": "ロード",
+    "event": "マラソン競歩",
+    "name": "川野将虎",
+    "time": "2時間55分14秒",
+    "score": 10,
+    "nationality": "日本",
+    "age": null,
+    "location": "高畠町",
+    "wind": null,
+    "comment": "世界新記録（初代世界記録保持者）、大会新",
+    "id": "n_1794522726_300",
+    "source_url": "https://www.rikujyokyogi.co.jp/archives/220471",
+    "date": "2026/11/12 22:32"
+  },
+  {
+    "is_record": true,
     "category": "短距離",
     "event": "300m",
     "name": "バログン・ハル",
@@ -4765,38 +4797,6 @@
     "comment": "U18日本新記録",
     "id": "n_1793704030_311",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e3%82%a8%e3%82%b3%e3%83%91%e3%83%88%e3%83%a9%e3%83%83%e3%82%af%e3%82%b2%e3%83%bc%e3%83%a0%e3%82%ba",
-    "date": "2026/11/03 11:07"
-  },
-  {
-    "is_record": true,
-    "category": "短距離",
-    "event": "400m",
-    "name": "後藤大樹",
-    "time": "45秒33",
-    "score": 6,
-    "nationality": "日本",
-    "age": "高校2年",
-    "location": "小笠山スタジアム（エコパトラックゲームズ）",
-    "wind": null,
-    "comment": "21年ぶりの高校新記録、U18日本新、U18今季世界最高、U18アジア最高",
-    "id": "n_1793704030_310",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e3%82%a8%e3%82%b3%e3%83%91%e3%83%88%e3%83%a9%e3%83%83%e3%82%af%e3%82%b2%e3%83%bc%e3%83%a0%e3%82%ba",
-    "date": "2026/11/03 11:07"
-  },
-  {
-    "is_record": true,
-    "category": "短距離",
-    "event": "4×100mR",
-    "name": "市柏高",
-    "time": "45秒32",
-    "score": 6,
-    "nationality": "日本",
-    "age": "高校生",
-    "location": "エコパトラックゲームズ",
-    "wind": null,
-    "comment": "U18日本新記録",
-    "id": "n_1793704024_309",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e9%ab%98%e6%a0%a1%e6%96%b0",
     "date": "2026/11/03 11:07"
   }
 ]
