@@ -1,6 +1,22 @@
 [
   {
     "is_record": true,
+    "category": "ロード",
+    "event": "5000m競歩",
+    "name": "六本木直斗",
+    "time": null,
+    "score": 5,
+    "nationality": "日本",
+    "age": "20",
+    "location": "U20世界選手権",
+    "wind": null,
+    "comment": "U20世界選手権5000m競歩で4位入賞",
+    "id": "n_1795693055_300",
+    "source_url": "https://www.rikujyokyogi.co.jp/archives/223974",
+    "date": "2026/11/26 11:37"
+  },
+  {
+    "is_record": true,
     "category": "長距離",
     "event": "クロスカントリー(6km)",
     "name": "H.ゲイプス",
@@ -4780,22 +4796,6 @@
     "wind": null,
     "comment": "ルーキーとして優勝。",
     "id": "n_1794654114_307",
-    "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e6%b1%a0%e7%94%b0%e5%90%91%e5%b8%8c",
-    "date": "2026/11/14 11:01"
-  },
-  {
-    "is_record": true,
-    "category": "ロード",
-    "event": "10000m競歩",
-    "name": "ガブリエル・ボルディエ",
-    "time": "37分23秒99",
-    "score": 8,
-    "nationality": "フランス",
-    "age": null,
-    "location": null,
-    "wind": null,
-    "comment": "従来の競歩における世界最高記録保持者として言及。",
-    "id": "n_1794654114_306",
     "source_url": "https://www.rikujyokyogi.co.jp/archives/tag/%e6%b1%a0%e7%94%b0%e5%90%91%e5%b8%8c",
     "date": "2026/11/14 11:01"
   }
